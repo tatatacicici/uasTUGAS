@@ -89,7 +89,7 @@ public class Graph {
         Kota node = firstKota;
         boolean ketemu = false;
         while ((node != null) && (ketemu == false)) {
-            if (node.infoKota == namaKotadicari) {
+            if (node.infoKota.equals(namaKotadicari)) {
                 hasil = node;
                 ketemu = true;
             } else {
@@ -194,6 +194,20 @@ public class Graph {
         } else {
             System.out.println("Graph kosong");
         }
+    }
+    public Jalur cariJalur(Kota asal, Kota tujuan) {
+        Kota node = asal;
+        while (node != null) {
+            Jalur jlr = node.jalur;
+            while (jlr != null) {
+                if (jlr.simpul.equals(tujuan)) {
+                    return jlr;
+                }
+                jlr = jlr.nextJalur;
+            }
+            node = node.nextKota;
+        }
+        return null; // Jalur tidak ditemukan
     }
 
     public boolean cekJalur(Kota asal, Kota tujuan){

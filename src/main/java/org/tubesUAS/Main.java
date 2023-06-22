@@ -35,6 +35,25 @@ public class Main {
             System.out.println("Kota"+name+"Tidak ditemukan");
         }
     }
+    public static void cariJalur(Graph stadt, String asal, String tujuan) {
+        Kota nodeAsal = stadt.cariKota(asal);
+        Kota nodeTujuan = stadt.cariKota(tujuan);
+
+        if (nodeAsal == null || nodeTujuan == null) {
+            System.out.println("Kota asal atau tujuan tidak ditemukan");
+            return;
+        }
+
+        Jalur jalur = stadt.cariJalur(nodeAsal, nodeTujuan);
+        if (jalur != null) {
+            System.out.println("Jalur ditemukan");
+            System.out.println("Kota Asal: " + asal);
+            System.out.println("Kota Tujuan: " + tujuan);
+            System.out.println("Jarak: " + jalur.jarakKota + " km");
+        } else {
+            System.out.println("Jalur tidak ditemukan");
+        }
+    }
 
     public static void main(String[] args) {
         Graph stadt = new Graph();
@@ -42,6 +61,13 @@ public class Main {
         Antrian kereta = new Antrian();
         Antrian pesawat = new Antrian();
         Scanner input = new Scanner(System.in);
+        //Menambahkan 5 Kota Awal
+        addNode(stadt, "Hamburg");
+        addNode(stadt,"Frankfurt");
+        addNode(stadt,"Stuttgart");
+        addNode(stadt,"Munchen");
+        addNode(stadt,"Berlin");
+        //
         int pilihan = 1;
         int layanan;
         do {
@@ -65,6 +91,7 @@ public class Main {
                     case 0:
                         System.out.println("Keluar Dari Program");
                         System.exit(0);
+                        break;
                     case 1:
                         System.out.println("TAMBAH ANTRIAN");
                         System.out.println("1) BUS");
@@ -73,24 +100,21 @@ public class Main {
                         System.out.print("Pilih jenis antrian: ");
                         layanan = Integer.parseInt(input.nextLine());
                         String nama_pnp;
-                        switch (layanan){
-                            case 1:
-                                System.out.print("Masukkan Nama Anda: ");
-                                nama_pnp = input.nextLine();
-                                bus.enQueue(nama_pnp);
-                                break;
-                            case 2:
-                                System.out.print("Masukkan Nama Anda: ");
-                                nama_pnp = input.nextLine();
-                                kereta.enQueue(nama_pnp);
-                                break;
-                            case 3:
-                                System.out.print("Masukkan Nama Anda: ");
-                                nama_pnp = input.nextLine();
-                                pesawat.enQueue(nama_pnp);
-                                break;
-                            default:
-                                throw new IllegalArgumentException("Jenis Antrian Tidak VALID!!!!");
+
+                        if (layanan == 1) {
+                            System.out.print("Masukkan Nama Anda: ");
+                            nama_pnp = input.nextLine();
+                            bus.enQueue(nama_pnp);
+                        } else if (layanan == 2) {
+                            System.out.print("Masukkan Nama Anda: ");
+                            nama_pnp = input.nextLine();
+                            kereta.enQueue(nama_pnp);
+                        } else if (layanan == 3) {
+                            System.out.print("Masukkan Nama Anda: ");
+                            nama_pnp = input.nextLine();
+                            pesawat.enQueue(nama_pnp);
+                        } else {
+                            throw new IllegalArgumentException("Jenis Antrian Tidak VALID!!!!");
                         }
                         break;
                     case 2:
@@ -115,25 +139,23 @@ public class Main {
                         System.out.println("2) HAPUS KOTA");
                         System.out.println("3) LIHAT KOTA");
                         System.out.print("Pilih tindakan: ");
-                        int kelola =  Integer.parseInt(input.nextLine());
+                        int kelola = Integer.parseInt(input.nextLine());
                         String asal;
-                        switch (kelola){
-                            case 1:
-                                System.out.print("Masukkan Nama Kota: ");
-                                asal = input.nextLine();
-                                addNode(stadt, asal);
-                                break;
-                            case 2:
-                                System.out.print("Masukkan Nama Kota: ");
-                                asal = input.nextLine();
-                                stadt.hapusKota(asal);
-                                break;
-                            case 3:
-                                stadt.cetakKota();
-                                break;
-                            default:
-                                throw new IllegalArgumentException("Input SALAH!!!");
+
+                        if (kelola == 1) {
+                            System.out.print("Masukkan Nama Kota: ");
+                            asal = input.nextLine();
+                            addNode(stadt, asal);
+                        } else if (kelola == 2) {
+                            System.out.print("Masukkan Nama Kota: ");
+                            asal = input.nextLine();
+                            stadt.hapusKota(asal);
+                        } else if (kelola == 3) {
+                            stadt.cetakKota();
+                        } else {
+                            throw new IllegalArgumentException("Input SALAH!!!");
                         }
+                    break;
                     case 4:
                         System.out.print("Masukkan Nama Kota yang ingin dicari: ");
                         String cari = input.nextLine();
@@ -148,35 +170,37 @@ public class Main {
                         int lajur = Integer.parseInt(input.nextLine());
                         String awal, tujuan;
                         int jarak;
-                        switch (lajur){
-                            case 1:
-                                System.out.print("Masukkan Kota Asal: ");
-                                awal = input.nextLine();
-                                System.out.print("Masukkan Kota Tujuan: ");
-                                tujuan = input.nextLine();
-                                System.out.print("Masukkan Jarak (Km): ");
-                                jarak = input.nextInt();
-                                addEdge(stadt, awal,tujuan, jarak);
-                                break;
-                            case 2:
-                                System.out.print("Masukkan Kota Asal: ");
-                                awal = input.nextLine();
-                                stadt.hapusJalur(awal);
-                                break;
-                            case 3:
-                                stadt.cetakJalur();
-                                break;
+                        if (lajur == 1) {
+                            System.out.print("Masukkan Kota Asal: ");
+                            awal = input.nextLine();
+                            System.out.print("Masukkan Kota Tujuan: ");
+                            tujuan = input.nextLine();
+                            System.out.print("Masukkan Jarak (Km): ");
+                            jarak = input.nextInt();
+                            addEdge(stadt, awal, tujuan, jarak);
+                        } else if (lajur == 2) {
+                            System.out.print("Masukkan Kota Asal: ");
+                            awal = input.nextLine();
+                            stadt.hapusJalur(awal);
+                        } else if (lajur == 3) {
+                            stadt.cetakJalur();
+                        } else {
+                            throw new IllegalArgumentException("Input SALAH!!!");
                         }
+
+                        break;
                     case 6:
                         System.out.println("Masukkan Nama Kota Asal: ");
                         String board = input.nextLine();
                         System.out.println("Masukkan Nama Kota Tujuan: ");
                         String arriv = input.nextLine();
                         //stadt.tampilJalur(board, arriv);
+                        break;
 
                     default:
                         throw new IllegalArgumentException("Inputan tidak Valid");
                 }
+
             } catch (Exception e) {
                 System.out.println("Terjadi kesalahan: " + e.getMessage());
                 input.nextLine();
