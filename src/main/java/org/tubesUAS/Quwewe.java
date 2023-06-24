@@ -2,6 +2,8 @@ package org.tubesUAS;
 
 public class Quwewe {
     String nama;
+    String asal;
+    String tujuan;
     Quwewe next;
     Quwewe prev;
 //    Quwewe info;
