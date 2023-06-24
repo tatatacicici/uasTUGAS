@@ -56,17 +56,37 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Graph stadt = new Graph();
+        //Deklarasi Objek
+        Graph train = new Graph();
+        Graph autobus = new Graph();
+        Graph plane = new Graph();
         Antrian bus = new Antrian();
         Antrian kereta = new Antrian();
         Antrian pesawat = new Antrian();
         Scanner input = new Scanner(System.in);
-        //Menambahkan 5 Kota Awal
-        addNode(stadt, "Hamburg");
-        addNode(stadt,"Frankfurt");
-        addNode(stadt,"Stuttgart");
-        addNode(stadt,"Munchen");
-        addNode(stadt,"Berlin");
+
+        //Menambahkan 5 Kota Awal untuk Bus
+        addNode(autobus, "Hamburg");
+        addNode(autobus, "Frankfurt");
+        addNode(autobus, "Stuttgart");
+        addNode(autobus,"Munchen");
+        addNode(autobus, "Berlin");
+        //Menambhkan 5 Kota Awal untuk Kereta
+        addNode(train, "Hamburg");
+        addNode(train, "Frankfurt");
+        addNode(train, "Stuttgart");
+        addNode(train,"Munchen");
+        addNode(train, "Berlin");
+        //Menambahkan 5 Kota Awal untuk Pesawat
+        addNode(plane, "Hamburg");
+        addNode(plane, "Frankfurt");
+        addNode(plane, "Stuttgart");
+        addNode(plane,"Munchen");
+        addNode(plane, "Berlin");
+        //Menambahkan Jalur Untuk Bus
+        //Menambahkan Jalur Untuk Kereta
+        //Menambahkan Jalur Untuk Pesawat
+
         //
         int pilihan = 1;
         int layanan;
@@ -145,13 +165,26 @@ public class Main {
                         if (kelola == 1) {
                             System.out.print("Masukkan Nama Kota: ");
                             asal = input.nextLine();
-                            addNode(stadt, asal);
+                            addNode(autobus, asal);
+                            addNode(train, asal);
+                            addNode(plane, asal);
                         } else if (kelola == 2) {
                             System.out.print("Masukkan Nama Kota: ");
                             asal = input.nextLine();
-                            stadt.hapusKota(asal);
+                            autobus.hapusKota(asal);
+                            plane.hapusKota(asal);
+                            train.hapusKota(asal);
                         } else if (kelola == 3) {
-                            stadt.cetakKota();
+                            System.out.println("Jalur Bus");
+                            autobus.cetakKota();
+                            System.out.println("=============");
+                            System.out.println("Jalur Kereta");
+                            train.cetakKota();
+                            System.out.println("=============");
+                            System.out.println("Jalur Pesawat");
+                            plane.cetakKota();
+                            System.out.println("=============");
+
                         } else {
                             throw new IllegalArgumentException("Input SALAH!!!");
                         }
@@ -159,42 +192,126 @@ public class Main {
                     case 4:
                         System.out.print("Masukkan Nama Kota yang ingin dicari: ");
                         String cari = input.nextLine();
-                        searchStadt(stadt, cari);
+                        searchStadt(autobus, cari);
                         break;
                     case 5:
-                        System.out.println("KELOLA JALUR");
-                        System.out.println("1) TAMBAH JALUR");
-                        System.out.println("2) HAPUS JALUR");
-                        System.out.println("3) LIHAT JALUR");
+                        System.out.println("PILIH MODA:");
+                        System.out.println("1) BUS");
+                        System.out.println("2) KERETA");
+                        System.out.println("3) PESAWAT");
                         System.out.print("Pilih tindakan: ");
-                        int lajur = Integer.parseInt(input.nextLine());
-                        String awal, tujuan;
-                        int jarak;
-                        if (lajur == 1) {
-                            System.out.print("Masukkan Kota Asal: ");
-                            awal = input.nextLine();
-                            System.out.print("Masukkan Kota Tujuan: ");
-                            tujuan = input.nextLine();
-                            System.out.print("Masukkan Jarak (Km): ");
-                            jarak = input.nextInt();
-                            addEdge(stadt, awal, tujuan, jarak);
-                        } else if (lajur == 2) {
-                            System.out.print("Masukkan Kota Asal: ");
-                            awal = input.nextLine();
-                            stadt.hapusJalur(awal);
-                        } else if (lajur == 3) {
-                            stadt.cetakJalur();
-                        } else {
-                            throw new IllegalArgumentException("Input SALAH!!!");
+                        int moda = Integer.parseInt(input.nextLine());
+                        if(moda == 1){
+                            System.out.println("KELOLA JALUR");
+                            System.out.println("1) TAMBAH JALUR");
+                            System.out.println("2) HAPUS JALUR");
+                            System.out.println("3) LIHAT JALUR");
+                            System.out.print("Pilih tindakan: ");
+                            int lajur = Integer.parseInt(input.nextLine());
+                            String awal, tujuan;
+                            int jarak;
+                            if (lajur == 1) {
+                                System.out.print("Masukkan Kota Asal: ");
+                                awal = input.nextLine();
+                                System.out.print("Masukkan Kota Tujuan: ");
+                                tujuan = input.nextLine();
+                                System.out.print("Masukkan Jarak (Km): ");
+                                jarak = input.nextInt();
+                                addEdge(autobus, awal, tujuan, jarak);
+                            } else if (lajur == 2) {
+                                System.out.print("Masukkan Kota Asal: ");
+                                awal = input.nextLine();
+                                autobus.hapusJalur(awal);
+                            } else if (lajur == 3) {
+                                autobus.cetakJalur();
+                            } else {
+                                throw new IllegalArgumentException("Input SALAH!!!");
+                            }
+                        }else if(moda == 2){
+                            System.out.println("KELOLA JALUR");
+                            System.out.println("1) TAMBAH JALUR");
+                            System.out.println("2) HAPUS JALUR");
+                            System.out.println("3) LIHAT JALUR");
+                            System.out.print("Pilih tindakan: ");
+                            int lajur = Integer.parseInt(input.nextLine());
+                            String awal, tujuan;
+                            int jarak;
+                            if (lajur == 1) {
+                                System.out.print("Masukkan Kota Asal: ");
+                                awal = input.nextLine();
+                                System.out.print("Masukkan Kota Tujuan: ");
+                                tujuan = input.nextLine();
+                                System.out.print("Masukkan Jarak (Km): ");
+                                jarak = input.nextInt();
+                                addEdge(train, awal, tujuan, jarak);
+                            } else if (lajur == 2) {
+                                System.out.print("Masukkan Kota Asal: ");
+                                awal = input.nextLine();
+                                train.hapusJalur(awal);
+                            } else if (lajur == 3) {
+                                train.cetakJalur();
+                            } else {
+                                throw new IllegalArgumentException("Input SALAH!!!");
+                            }
+                        }else if(moda == 3){
+                            System.out.println("KELOLA JALUR");
+                            System.out.println("1) TAMBAH JALUR");
+                            System.out.println("2) HAPUS JALUR");
+                            System.out.println("3) LIHAT JALUR");
+                            System.out.print("Pilih tindakan: ");
+                            int lajur = Integer.parseInt(input.nextLine());
+                            String awal, tujuan;
+                            int jarak;
+                            if (lajur == 1) {
+                                System.out.print("Masukkan Kota Asal: ");
+                                awal = input.nextLine();
+                                System.out.print("Masukkan Kota Tujuan: ");
+                                tujuan = input.nextLine();
+                                System.out.print("Masukkan Jarak (Km): ");
+                                jarak = input.nextInt();
+                                addEdge(plane, awal, tujuan, jarak);
+                            } else if (lajur == 2) {
+                                System.out.print("Masukkan Kota Asal: ");
+                                awal = input.nextLine();
+                                plane.hapusJalur(awal);
+                            } else if (lajur == 3) {
+                                plane.cetakJalur();
+                            } else {
+                                throw new IllegalArgumentException("Input SALAH!!!");
+                            }
+                        }else{
+                            throw new IllegalArgumentException("INPUT SALAH!!!");
                         }
-
                         break;
                     case 6:
-                        System.out.println("Masukkan Nama Kota Asal: ");
-                        String board = input.nextLine();
-                        System.out.println("Masukkan Nama Kota Tujuan: ");
-                        String arriv = input.nextLine();
-                        //stadt.tampilJalur(board, arriv);
+                        System.out.println("PILIH MODA:");
+                        System.out.println("1) BUS");
+                        System.out.println("2) KERETA");
+                        System.out.println("3) PESAWAT");
+                        System.out.print("Pilih tindakan: ");
+                        int look = Integer.parseInt(input.nextLine());
+                        if(look == 1){
+                            System.out.println("Masukkan Nama Kota Asal: ");
+                            String board = input.nextLine();
+                            System.out.println("Masukkan Nama Kota Tujuan: ");
+                            String arriv = input.nextLine();
+                            cariJalur(autobus, board, arriv);
+                        }else if(look == 2){
+                            System.out.println("Masukkan Nama Kota Asal: ");
+                            String board = input.nextLine();
+                            System.out.println("Masukkan Nama Kota Tujuan: ");
+                            String arriv = input.nextLine();
+                            cariJalur(train, board, arriv);
+                        }else if(look == 3){
+                            System.out.println("Masukkan Nama Kota Asal: ");
+                            String board = input.nextLine();
+                            System.out.println("Masukkan Nama Kota Tujuan: ");
+                            String arriv = input.nextLine();
+                            cariJalur(plane, board, arriv);
+                        }else{
+                            throw  new IllegalArgumentException("Input Salah");
+                        }
+
                         break;
 
                     default:
