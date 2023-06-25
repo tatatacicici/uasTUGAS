@@ -94,8 +94,13 @@ public class Graph {
         Kota hasil = null;
         Kota node = firstKota;
         boolean ketemu = false;
+<<<<<<< HEAD
         while (node != null && !ketemu) {
             if (node.infoKota.equals(namaKotaSearch)) {
+=======
+        while ((node != null) && (ketemu == false)) {
+            if (node.infoKota.equals(namaKotadicari)) {
+>>>>>>> 6960db9de8066698ba0356a706615d3c9260e15e
                 hasil = node;
                 ketemu = true;
             } else {
@@ -186,7 +191,41 @@ public class Graph {
         }
     }
 
+<<<<<<< HEAD
     public boolean cekJalur(Kota asal, Kota tujuan) {
+=======
+                Jalur jlr = node.jalur;
+                while (jlr != null) {
+                    jalurKota += jlr.simpul.infoKota + ", ";
+                    jlr = jlr.nextJalur;
+                }
+
+                System.out.printf("| %-20s|\n", infoKota);
+
+                node = node.nextKota;
+            }
+            System.out.println("+----------------------------------------------------+");
+        } else {
+            System.out.println("Graph kosong");
+        }
+    }
+    public Jalur cariJalur(Kota asal, Kota tujuan) {
+        Kota node = asal;
+        while (node != null) {
+            Jalur jlr = node.jalur;
+            while (jlr != null) {
+                if (jlr.simpul.equals(tujuan)) {
+                    return jlr;
+                }
+                jlr = jlr.nextJalur;
+            }
+            node = node.nextKota;
+        }
+        return null; // Jalur tidak ditemukan
+    }
+
+    public boolean cekJalur(Kota asal, Kota tujuan){
+>>>>>>> 6960db9de8066698ba0356a706615d3c9260e15e
         Jalur jlr = asal.jalur;
         boolean ada = false;
         while (jlr != null) {

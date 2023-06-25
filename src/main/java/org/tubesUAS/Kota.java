@@ -1,5 +1,8 @@
 package org.tubesUAS;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6960db9de8066698ba0356a706615d3c9260e15e
 public class Kota {
     String infoKota;
     Kota nextKota;
