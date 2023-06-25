@@ -29,10 +29,6 @@ public class Graph {
     }
 
     public void tambahJalur(Kota tujuan, int jarakKota, Kota asal) {
-        if (asal == null) {
-            System.out.println("Kota Tidak Valid");
-            return;
-        }
         Jalur edge = new Jalur(jarakKota, null, tujuan);
         if (asal.jalur == null) {
             asal.jalur = edge;
@@ -49,97 +45,117 @@ public class Graph {
         Kota node = firstKota;
         Kota prevKota = null;
 
-        while (node != null && node.infoKota.equals(namaKotaDelete)) {
+        // Cari Kota yang akan dihapus
+        while (node != null && !node.infoKota.equals(namaKotaDelete)) {
             prevKota = node;
             node = node.nextKota;
         }
+
         if (node == null) {
             System.out.println("Kota " + namaKotaDelete + " tidak ditemukan");
+            return;
         }
 
-        Kota kotaSementara = firstKota;
-        while (kotaSementara != null) {
-            Jalur jalurSementara = kotaSementara.jalur;
+        // Hapus semua jalur terhubung dengan Kota yang dihapus
+        Kota currKota = firstKota;
+        while (currKota != null) {
+            Jalur currJalur = currKota.jalur;
             Jalur prevJalur = null;
 
-            while (jalurSementara != null) {
-                if (jalurSementara.simpul == node) {
+            while (currJalur != null) {
+                if (currJalur.kota == node) {
+                    // Hapus jalur terhubung dengan Kota yang dihapus
                     if (prevJalur == null) {
-                        kotaSementara.jalur = jalurSementara.nextJalur;
+                        currKota.jalur = currJalur.nextJalur;
                     } else {
-                        prevJalur.nextJalur = jalurSementara.nextJalur;
+                        prevJalur.nextJalur = currJalur.nextJalur;
                     }
                 } else {
-                    prevJalur = jalurSementara;
+                    prevJalur = currJalur;
                 }
-                jalurSementara = jalurSementara.nextJalur;
+
+                currJalur = currJalur.nextJalur;
             }
-            kotaSementara = kotaSementara.nextKota;
+
+            currKota = currKota.nextKota;
         }
+
+        // Hapus Kota
         if (prevKota == null) {
             firstKota = node.nextKota;
         } else {
             prevKota.nextKota = node.nextKota;
         }
+
         System.out.println("Kota " + namaKotaDelete + " berhasil dihapus");
     }
 
-    public Kota cariKota(String namaKotadicari) {
+    public Kota cariKota(String namaKotaSearch) {
         Kota hasil = null;
         Kota node = firstKota;
         boolean ketemu = false;
-        while ((node != null) && (ketemu == false)) {
-            if (node.infoKota == namaKotadicari) {
+        while (node != null && !ketemu) {
+            if (node.infoKota.equals(namaKotaSearch)) {
                 hasil = node;
                 ketemu = true;
             } else {
                 node = node.nextKota;
             }
-
         }
         return hasil;
+    }
+
+    public void cariJalur(Graph stadt, String awal, String tujuan) {
+        System.out.println("Jalur dari " + awal + " ke " + tujuan + " : " + stadt.cekJalur(stadt.cariKota(awal), stadt.cariKota(tujuan)));
     }
 
     public void hapusJalur(String namaJalurDelete) {
         Kota node = firstKota;
         boolean jalurDihapus = false;
+
         while (node != null) {
             Jalur jalur = node.jalur;
             Jalur prevJalur = null;
 
             while (jalur != null) {
-                if (jalur.simpul.infoKota.equals(namaJalurDelete)) {
+                if (jalur.kota.infoKota.equals(namaJalurDelete)) {
                     if (prevJalur == null) {
                         node.jalur = jalur.nextJalur;
                     } else {
                         prevJalur.nextJalur = jalur.nextJalur;
                     }
+
                     jalurDihapus = true;
                     break;
                 }
+
                 prevJalur = jalur;
                 jalur = jalur.nextJalur;
             }
+
             node = node.nextKota;
         }
+
         if (jalurDihapus) {
             System.out.println("Jalur " + namaJalurDelete + " berhasil dihapus.");
         } else {
             System.out.println("Jalur " + namaJalurDelete + " tidak ditemukan.");
         }
     }
-    public int hitungKota(){
+
+    public int hitungKota() {
         Kota node = firstKota;
         jumlahKota = 0;
-        if(node != null){
-            while(node != null){
-                jumlahKota =  jumlahKota + 1;
+        if (node != null) {
+            while (node != null) {
+                jumlahKota = jumlahKota + 1;
                 node = node.nextKota;
             }
         }
         return jumlahKota;
     }
-    public void cetakJalur() {
+
+    public void cetakGraph() {
         Kota node = firstKota;
         if (node != null) {
             System.out.println("+----------------------------------------------------+");
@@ -152,7 +168,7 @@ public class Graph {
 
                 Jalur jlr = node.jalur;
                 while (jlr != null) {
-                    jalurKota += jlr.simpul.infoKota + ", ";
+                    jalurKota += jlr.kota.infoKota + ", ";
                     jlr = jlr.nextJalur;
                 }
 
@@ -169,120 +185,31 @@ public class Graph {
             System.out.println("Graph kosong");
         }
     }
-    public void cetakKota() {
-        Kota node = firstKota;
-        if (node != null) {
-            System.out.println("+----------------------------------------------------+");
-            System.out.printf("| %-20s|\n", "Kota");
-            System.out.println("+----------------------------------------------------+");
-            while (node != null) {
-                jumlahKota++;
-                String infoKota = node.infoKota;
-                String jalurKota = "";
 
-                Jalur jlr = node.jalur;
-                while (jlr != null) {
-                    jalurKota += jlr.simpul.infoKota + ", ";
-                    jlr = jlr.nextJalur;
-                }
-
-                System.out.printf("| %-20s|\n", infoKota);
-
-                node = node.nextKota;
-            }
-            System.out.println("+----------------------------------------------------+");
-        } else {
-            System.out.println("Graph kosong");
-        }
-    }
-
-    public boolean cekJalur(Kota asal, Kota tujuan){
+    public boolean cekJalur(Kota asal, Kota tujuan) {
         Jalur jlr = asal.jalur;
         boolean ada = false;
-
-        while(jlr != null){
-            if(jlr.simpul.infoKota.equals(tujuan.infoKota)) {
+        while (jlr != null) {
+            if (jlr.kota.infoKota.equals(tujuan.infoKota)) {
                 ada = true;
-            }
-            if(tujuan.infoKota == null){
-                return false;
+                break; // Keluar dari loop saat jalur ditemukan
             }
             jlr = jlr.nextJalur;
         }
         return ada;
     }
-//    public void tampilJalur(Kota asal, Kota tujuan){
-//
-//        Jalur jlr = asal.jalur;
-//        String ada = "";
-//        String infokota = node.InfoKo
-//        if(tujuan.infoKota == null){
-//            System.out.println("Jalur Tidak Ada");
-//        }
-//        while(jlr != null){
-//            if(jlr.simpul.infoKota.equals(tujuan.infoKota))
-//            {
-//                System.out.println("+----------------------------------------------------+");
-//                System.out.printf("| %-20s | %-27s |\n", "Kota", "Jalur");
-//                System.out.println("+----------------------------------------------------+");
-//                System.out.printf("| %-20s | %-27s |\n", infoKota, jalurKota);
-//
-//            }
-//
-//            jlr = jlr.nextJalur;
-//        }
-//    }
-//    public Jalur cariJalur(Jalur asal, Jalur tujuan){
-//        return;
-//    }
-    public void tampilJalur(Kota asal, Kota tujuan){
-        Kota node = asal;
-        if (node != null) {
-            System.out.println("+----------------------------------------------------+");
-            System.out.printf("| %-20s | %-27s |\n", "Kota", "Jalur");
-            System.out.println("+----------------------------------------------------+");
-            while (node != null) {
-                String infoKota = node.infoKota;
-                String jalurKota = "";
 
-                Jalur jlr = node.jalur;
-                while (jlr != null) {
-                    jalurKota += jlr.simpul.infoKota + ", ";
-                    jlr = jlr.nextJalur;
-                }
-
-                if (!jalurKota.isEmpty()) {
-                    jalurKota = jalurKota.substring(0, jalurKota.length() - 2); // Remove trailing comma and space
-                }
-
-                if (node.infoKota.equals(tujuan.infoKota)) {
-                    System.out.printf("| %-20s | %-27s |\n", infoKota, jalurKota);
-                }
-
-                node = node.nextKota;
-            }
-            System.out.println("+----------------------------------------------------+");
-        } else {
-            System.out.println("Graph kosong");
-        }
-    }
-
-    public int getNilaiJalur(String ori, String dest){
+    public int getNilaiJalur(String ori, String dest) {
         int nilai = 0;
         Kota end = cariKota(dest);
         Kota begin = cariKota(ori);
         Jalur jlr = begin.jalur;
-        if(jlr == null){
-            return 0;
-        }
-        while(jlr != null){
-            if(jlr.simpul.infoKota.equals(end.infoKota)){
+        while (jlr != null) {
+            if (jlr.kota.infoKota.equals(end.infoKota)) {
                 nilai = jlr.jarakKota;
             }
             jlr = jlr.nextJalur;
         }
         return nilai;
     }
-
-
 }

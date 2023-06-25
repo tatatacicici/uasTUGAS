@@ -1,13 +1,14 @@
 package org.tubesUAS;
-import  java.util.Scanner;
+
+import java.util.Scanner;
 
 public class Main {
     public static void addNode(Graph stadt, String name){
         Kota node = stadt.cariKota(name);
         if (node == null){
-            stadt.tambahKota(name);
+            stadt.tambahKota(name);;
             System.out.printf("|   %-13s| Ditambah  |\n",name);
-            System.out.println("------'.------------------------");
+            System.out.println("------------------------------");
         }else {
             System.out.println("|   " + name + "   |   Sudah Ada |");
             System.out.println("---------------------------------");
@@ -27,21 +28,29 @@ public class Main {
             }
         }
     }
-    public static  void searchStadt(Graph stadt, String name){
+
+    public static void searchStadt(Graph stadt, String name) {
         Kota node = stadt.cariKota(name);
-        if(node != null){
-            System.out.println("Kota "+name+"Ditemukan");
-        }else{
-            System.out.println("Kota"+name+"Tidak ditemukan");
+        if (node != null) {
+            System.out.println("Kota " + name + "Ditemukan");
+        } else {
+            System.out.println("Kota" + name + "Tidak ditemukan");
         }
     }
 
     public static void main(String[] args) {
         Graph stadt = new Graph();
+
         Antrian bus = new Antrian();
         Antrian kereta = new Antrian();
         Antrian pesawat = new Antrian();
+
+        Antrian busTerjual = new Antrian();
+        Antrian keretaTerjual = new Antrian();
+        Antrian pesawatTerjual = new Antrian();
+
         Scanner input = new Scanner(System.in);
+        Scanner masukkan = new Scanner(System.in);
         int pilihan = 1;
         int layanan;
         do {
@@ -65,6 +74,7 @@ public class Main {
                     case 0:
                         System.out.println("Keluar Dari Program");
                         System.exit(0);
+                        break;
                     case 1:
                         System.out.println("TAMBAH ANTRIAN");
                         System.out.println("1) BUS");
@@ -73,7 +83,7 @@ public class Main {
                         System.out.print("Pilih jenis antrian: ");
                         layanan = Integer.parseInt(input.nextLine());
                         String nama_pnp;
-                        switch (layanan){
+                        switch (layanan) {
                             case 1:
                                 System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
@@ -95,9 +105,9 @@ public class Main {
                         break;
                     case 2:
                         System.out.println("Lihat Antrian");
-                        if(bus.isEmpty() && kereta.isEmpty() && pesawat.isEmpty()){
+                        if (bus.isEmpty() && kereta.isEmpty() && pesawat.isEmpty()) {
                             System.out.println("Antrian Kosong");
-                        }else{
+                        } else {
                             System.out.println("Antrian Bus");
                             bus.print();
                             System.out.println("===================");
@@ -115,9 +125,9 @@ public class Main {
                         System.out.println("2) HAPUS KOTA");
                         System.out.println("3) LIHAT KOTA");
                         System.out.print("Pilih tindakan: ");
-                        int kelola =  Integer.parseInt(input.nextLine());
+                        int kelola = Integer.parseInt(input.nextLine());
                         String asal;
-                        switch (kelola){
+                        switch (kelola) {
                             case 1:
                                 System.out.print("Masukkan Nama Kota: ");
                                 asal = input.nextLine();
@@ -129,11 +139,12 @@ public class Main {
                                 stadt.hapusKota(asal);
                                 break;
                             case 3:
-                                stadt.cetakKota();
+                                stadt.cetakGraph();
                                 break;
                             default:
                                 throw new IllegalArgumentException("Input SALAH!!!");
                         }
+                        break;
                     case 4:
                         System.out.print("Masukkan Nama Kota yang ingin dicari: ");
                         String cari = input.nextLine();
@@ -145,18 +156,18 @@ public class Main {
                         System.out.println("2) HAPUS JALUR");
                         System.out.println("3) LIHAT JALUR");
                         System.out.print("Pilih tindakan: ");
-                        int lajur = Integer.parseInt(input.nextLine());
+                        int lajur = masukkan.nextInt();
                         String awal, tujuan;
                         int jarak;
-                        switch (lajur){
+                        switch (lajur) {
                             case 1:
                                 System.out.print("Masukkan Kota Asal: ");
                                 awal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan: ");
                                 tujuan = input.nextLine();
                                 System.out.print("Masukkan Jarak (Km): ");
-                                jarak = input.nextInt();
-                                addEdge(stadt, awal,tujuan, jarak);
+                                jarak = masukkan.nextInt();
+                                addEdge(stadt, awal, tujuan, jarak);
                                 break;
                             case 2:
                                 System.out.print("Masukkan Kota Asal: ");
@@ -164,15 +175,52 @@ public class Main {
                                 stadt.hapusJalur(awal);
                                 break;
                             case 3:
-                                stadt.cetakJalur();
+                                stadt.cetakGraph();
                                 break;
                         }
+                        break;
                     case 6:
-                        System.out.println("Masukkan Nama Kota Asal: ");
-                        String board = input.nextLine();
-                        System.out.println("Masukkan Nama Kota Tujuan: ");
-                        String arriv = input.nextLine();
-                        //stadt.tampilJalur(board, arriv);
+                        System.out.print("Masukkan Nama Kota Asal: ");
+                        awal = input.nextLine();
+                        System.out.print("Masukkan Nama Kota Tujuan: ");
+                        tujuan = input.nextLine();
+                        stadt.cariJalur(stadt, awal, tujuan);
+                        break;
+                    case 7:
+                        System.out.println("BELI TIKET");
+                        System.out.println("1. Tiket BUS");
+                        System.out.println("2. Tiket KERETA");
+                        System.out.println("3. Tiket PESAWAT");
+                        System.out.println("Silahkan pilih menu beli tiket: ");
+                        Integer tiket = masukkan.nextInt();
+                        String nama;
+                        switch (tiket) {
+                            case 1:
+                                System.out.println("Beli tiket bus");
+                                // System.out.print("Masukkan nama anda: ");
+                                // nama = input.nextLine();
+                                bus.beliTiket(bus, busTerjual, nama, "BUS");
+                                System.out.println("");
+                                break;
+                            case 2:
+                                System.out.println("Beli tiket kereta");
+                                System.out.println("Masukkan nama anda: ");
+                                // metode
+                                System.out.println("");
+                                break;
+                            case 3:
+                                System.out.println("Beli tiket pesawat");
+                                System.out.println("Masukkan nama anda: ");
+                                // metode
+                                System.out.println("");
+                                break;
+                            default:
+                                System.out.println("Input salah");
+                                break;
+                        }
+                        break;
+                    case 8:
+                        System.out.println("Menu Lihat Tiket Terjual");
 
                     default:
                         throw new IllegalArgumentException("Inputan tidak Valid");
@@ -181,7 +229,7 @@ public class Main {
                 System.out.println("Terjadi kesalahan: " + e.getMessage());
                 input.nextLine();
             }
-        }while(pilihan != 0);
+        } while (pilihan != 0);
 
     }
 }
