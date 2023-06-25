@@ -1,7 +1,4 @@
 package org.tubesUAS;
-//tambah aja
-import java.util.jar.JarEntry;
-
 public class Kota {
     String infoKota;
     Kota nextKota;
