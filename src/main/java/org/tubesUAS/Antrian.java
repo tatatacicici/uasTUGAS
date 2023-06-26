@@ -2,7 +2,6 @@ package org.tubesUAS;
 
 public class Antrian {
     Quwewe first;
-    Quwewe last;
 
     Antrian() {
         first = null;
@@ -10,6 +9,20 @@ public class Antrian {
 
     void enQueue(String nama) {
         Quwewe antrian_baru = new Quwewe(nama);
+        if (first == null) {
+            first = antrian_baru;
+        } else {
+            Quwewe elemenSementara = first;
+            while (elemenSementara.next != null) {
+                elemenSementara = elemenSementara.next;
+            }
+            elemenSementara.next = antrian_baru;
+
+        }
+    }
+
+    void enQueue(String nama, String moda, String asal, String tujuan, int harga) {
+        Quwewe antrian_baru = new Quwewe(nama, moda, asal, tujuan, harga);
         if (first == null) {
             first = antrian_baru;
         } else {
@@ -52,40 +65,32 @@ public class Antrian {
 
     }
 
-    public Quwewe pindah() {
+    public void beliTiket(Antrian antrian, String moda, String asal, String tujuan, int harga) {
         if (first == null) {
-            return null;
-        } else {
-            Quwewe temp = first;
-            first = first.next;
-            if (first != null) {
-                first.prev = null;
-            } else {
-                last = null;
-            }
-            return temp;
-        }
-    }
-
-    public void beliTiket(Antrian antrian, Antrian antrianTerjual, String nama, String jenis) {
-        if (antrian.isEmpty()) {
             System.out.println("Antrian kosong");
         } else {
-            antrian.deQueue();
-            // String tiket = "Tiket berhasil dibeli: " + jenis + ", Nama: " + nama;
-            antrianTerjual.enQueue(antrian.pindah());
-            // return tiket;
+            String nama = first.nama;
+            antrian.enQueue(nama, moda, asal, tujuan, harga);
+            deQueue();
         }
     }
 
-    void lihatTiketTerjual() {
-        if (tiketTerjual.isEmpty()) {
-            System.out.println("Belum ada tiket terjual");
+    void tiketTerjual() {
+        Quwewe elemenSementara = first;
+        if (elemenSementara == null) {
+            System.out.println("Antrian Kosong");
         } else {
-            System.out.println("Daftar Tiket Terjual:");
-            for (String tiket : tiketTerjual) {
-                System.out.println(tiket);
+            while (elemenSementara != null) {
+                System.out.println("++++++++++++++++++++++");
+                System.out.println("Nama: " + (elemenSementara.nama));
+                System.out.println("Moda: " + (elemenSementara.moda));
+                System.out.println("Kota Asal: " + (elemenSementara.asal));
+                System.out.println("Kota Tujuan: " + (elemenSementara.tujuan));
+                System.out.println("Harga: " + (elemenSementara.harga));
+                System.out.println("+++++++++++++++++++++++");
+                elemenSementara = elemenSementara.next;
             }
         }
+
     }
 }
