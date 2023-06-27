@@ -96,17 +96,17 @@ public class Main {
                         }
                         break;
                     case 2:
-                        System.out.println("Lihat Antrian");
+                        System.out.println("\tLihat Antrian");
                         if (bus.isEmpty() && kereta.isEmpty() && pesawat.isEmpty()) {
                             System.out.println("Antrian Kosong");
                         } else {
-                            System.out.println("Antrian Bus");
+                            System.out.println("\tAntrian Bus");
                             bus.print();
                             System.out.println("===================");
-                            System.out.println("Antrian Kereta");
+                            System.out.println("\tAntrian Kereta");
                             kereta.print();
                             System.out.println("===================");
-                            System.out.println("Antrian Pesawat");
+                            System.out.println("\tAntrian Pesawat");
                             pesawat.print();
                             System.out.println("===================");
                         }
@@ -188,35 +188,35 @@ public class Main {
                         switch (tiket) {
                             case 1:
                                 String moda = "BUS";
-                                System.out.println("Beli tiket bus");
-                                System.out.println("Masukkan Kota Asal Anda: ");
+                                System.out.print("Beli tiket bus");
+                                System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 int harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
-                                System.out.println("Tiket" + moda + "Atas Nama: " + bus.first.nama + "Berhasil Dibeli");
+                                System.out.println("Tiket " + moda + " Atas Nama: " + bus.first.nama + " Berhasil Dibeli");
                                 bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
                                 break;
                             case 2:
                                 moda = "KERETA";
-                                System.out.println("Beli tiket KERETA");
-                                System.out.println("Masukkan Kota Asal Anda: ");
+                                System.out.print("Beli tiket KERETA");
+                                System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
-                                System.out.println("Tiket" + moda + "Atas Nama: " + kereta.first.nama + "Berhasil Dibeli");
+                                System.out.println("Tiket " + moda + " Atas Nama: " + kereta.first.nama + " Berhasil Dibeli");
                                 kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
                                 break;
                             case 3:
                                 moda = "PESAWAT";
-                                System.out.println("Beli tiket PESAWAT");
-                                System.out.println("Masukkan Kota Asal Anda: ");
+                                System.out.print("Beli tiket PESAWAT");
+                                System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
-                                System.out.println("Tiket" + moda + "Atas Nama: " + pesawat.first.nama + "Berhasil Dibeli");
+                                System.out.println("Tiket " + moda + " Atas Nama: " + pesawat.first.nama + " Berhasil Dibeli");
                                 pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
                                 break;
                             default:
@@ -227,16 +227,16 @@ public class Main {
                     case 8:
                         System.out.println("Menu Lihat Tiket Terjual");
                         System.out.println("Tiket Terjual Pada Moda Transportasi BUS");
-                        System.out.println("========================================");
                         busTerjual.tiketTerjual();
                         System.out.println("========================================");
+                        System.out.println("========================================");
                         System.out.println("Tiket Terjual Pada Moda Transportasi KERETA");
-                        System.out.println("===========================================");
                         keretaTerjual.tiketTerjual();
                         System.out.println("===========================================");
+                        System.out.println("========================================");
                         System.out.println("Tiket Terjual Pada Moda Transportasi PESAWAT");
-                        System.out.println("============================================");
                         pesawatTerjual.tiketTerjual();
+                        System.out.println("============================================");
                         System.out.println("============================================");
                     default:
                         throw new IllegalArgumentException("Inputan tidak Valid");
