@@ -3,41 +3,6 @@ package org.tubesUAS;
 import java.util.Scanner;
 
 public class Main {
-    public static void addNode(Graph stadt, String name){
-        Kota node = stadt.cariKota(name);
-        if (node == null){
-            stadt.tambahKota(name);;
-            System.out.printf("|   %-13s| Ditambah  |\n",name);
-            System.out.println("------------------------------");
-        }else {
-            System.out.println("|   " + name + "   |   Sudah Ada |");
-            System.out.println("---------------------------------");
-        }
-    }
-    public static void addEdge(Graph stadt, String ori, String dest, int jarak){
-        Kota end = stadt.cariKota(dest);
-        Kota begin = stadt.cariKota(ori);
-        if((begin != null) && (end != null)){
-            if(!stadt.cekJalur(begin, end)){
-                stadt.tambahJalur(end, jarak, begin);
-                System.out.printf("|   %-13s|  %-15s| %-10d|\n", begin.infoKota,end.infoKota, jarak);
-                System.out.println("------------------------------------------------");
-            }else {
-                System.out.println("|   " + begin.infoKota + "   |   " + end.infoKota + "   |     Sudah Ada    |");
-                System.out.println("----------------------------------------------");
-            }
-        }
-    }
-
-    public static void searchStadt(Graph stadt, String name) {
-        Kota node = stadt.cariKota(name);
-        if (node != null) {
-            System.out.println("Kota " + name + "Ditemukan");
-        } else {
-            System.out.println("Kota" + name + "Tidak ditemukan");
-        }
-    }
-
     public static void main(String[] args) {
         Graph stadt = new Graph();
 
@@ -55,26 +20,26 @@ public class Main {
         stadt.tambahKota("Munchen");
         stadt.tambahKota("Berlin");
         //Menambahkan Jalur Antar Kota
-        addEdge(stadt, "Hamburg", "Frankfurt", 493);
-        addEdge(stadt, "Hamburg", "Stuttgart", 656);
-        addEdge(stadt, "Hamburg", "Munchen", 791);
-        addEdge(stadt, "Hamburg", "Berlin", 289);
-        addEdge(stadt, "Frankfurt", "Stuttgart", 205);
-        addEdge(stadt, "Frankfurt", "Munchen", 393);
-        addEdge(stadt, "Frankfurt", "Berlin", 556);
-        addEdge(stadt, "Frankfurt", "Hamburg",493);
-        addEdge(stadt, "Stuttgart", "Munchen", 232);
-        addEdge(stadt, "Stuttgart", "Berlin", 638);
-        addEdge(stadt, "Stuttgart", "Hamburg", 656);
-        addEdge(stadt, "Stuttgart", "Frankfurt", 205);
-        addEdge(stadt, "Munchen", "Berlin", 590);
-        addEdge(stadt, "Munchen", "Hamburg", 791);
-        addEdge(stadt, "Munchen", "Frankfurt", 393);
-        addEdge(stadt, "Munchen", "Stuttgart", 232);
-        addEdge(stadt, "Berlin", "Hamburg", 289);
-        addEdge(stadt, "Berlin", "Frankfurt", 556);
-        addEdge(stadt, "Berlin", "Stuttgart", 638);
-        addEdge(stadt, "Berlin", "Munchen", 590);
+        addEdges(stadt, "Hamburg", "Frankfurt", 493);
+        addEdges(stadt, "Hamburg", "Stuttgart", 656);
+        addEdges(stadt, "Hamburg", "Munchen", 791);
+        addEdges(stadt, "Hamburg", "Berlin", 289);
+        addEdges(stadt, "Frankfurt", "Stuttgart", 205);
+        addEdges(stadt, "Frankfurt", "Munchen", 393);
+        addEdges(stadt, "Frankfurt", "Berlin", 556);
+        addEdges(stadt, "Frankfurt", "Hamburg",493);
+        addEdges(stadt, "Stuttgart", "Munchen", 232);
+        addEdges(stadt, "Stuttgart", "Berlin", 638);
+        addEdges(stadt, "Stuttgart", "Hamburg", 656);
+        addEdges(stadt, "Stuttgart", "Frankfurt", 205);
+        addEdges(stadt, "Munchen", "Berlin", 590);
+        addEdges(stadt, "Munchen", "Hamburg", 791);
+        addEdges(stadt, "Munchen", "Frankfurt", 393);
+        addEdges(stadt, "Munchen", "Stuttgart", 232);
+        addEdges(stadt, "Berlin", "Hamburg", 289);
+        addEdges(stadt, "Berlin", "Frankfurt", 556);
+        addEdges(stadt, "Berlin", "Stuttgart", 638);
+        addEdges(stadt, "Berlin", "Munchen", 590);
 
         Scanner input = new Scanner(System.in);
         Scanner masukkan = new Scanner(System.in);
@@ -218,7 +183,7 @@ public class Main {
                         System.out.println("1. Tiket BUS");
                         System.out.println("2. Tiket KERETA");
                         System.out.println("3. Tiket PESAWAT");
-                        System.out.println("Silahkan pilih menu beli tiket: ");
+                        System.out.print("Silahkan pilih menu beli tiket: ");
                         Integer tiket = masukkan.nextInt();
                         switch (tiket) {
                             case 1:
@@ -228,7 +193,7 @@ public class Main {
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
-                                int harga = (stadt.getNilaiJalur(asal, tujuan) * 100000);
+                                int harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
                                 System.out.println("Tiket" + moda + "Atas Nama: " + bus.first.nama + "Berhasil Dibeli");
                                 bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
                                 break;
@@ -239,7 +204,7 @@ public class Main {
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
-                                harga = (stadt.getNilaiJalur(asal, tujuan) * 100000);
+                                harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
                                 System.out.println("Tiket" + moda + "Atas Nama: " + kereta.first.nama + "Berhasil Dibeli");
                                 kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
                                 break;
@@ -250,7 +215,7 @@ public class Main {
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
-                                harga = (stadt.getNilaiJalur(asal, tujuan) * 100000);
+                                harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
                                 System.out.println("Tiket" + moda + "Atas Nama: " + pesawat.first.nama + "Berhasil Dibeli");
                                 pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
                                 break;
@@ -282,5 +247,53 @@ public class Main {
             }
         } while (pilihan != 0);
 
+    }
+    public static void addNode(Graph stadt, String name){
+        Kota node = stadt.cariKota(name);
+        if (node == null){
+            stadt.tambahKota(name);;
+            System.out.printf("|   %-13s| Ditambah  |\n",name);
+            System.out.println("------------------------------");
+        }else {
+            System.out.println("|   " + name + "   |   Sudah Ada |");
+            System.out.println("---------------------------------");
+        }
+    }
+    public static void addEdge(Graph stadt, String ori, String dest, int jarak){
+        Kota end = stadt.cariKota(dest);
+        Kota begin = stadt.cariKota(ori);
+        if((begin != null) && (end != null)){
+            if(!stadt.cekJalur(begin, end)){
+                stadt.tambahJalur(end, jarak, begin);
+                System.out.printf("|   %-13s|  %-15s| %-10d|\n", begin.infoKota,end.infoKota, jarak);
+                System.out.println("------------------------------------------------");
+            }else {
+                System.out.println("|   " + begin.infoKota + "   |   " + end.infoKota + "   |     Sudah Ada    |");
+                System.out.println("----------------------------------------------");
+            }
+        }
+    }
+    public static void addEdges(Graph stadt, String ori, String dest, int jarak){
+        Kota end = stadt.cariKota(dest);
+        Kota begin = stadt.cariKota(ori);
+        if((begin != null) && (end != null)){
+            if(!stadt.cekJalur(begin, end)){
+                stadt.tambahJalur(end, jarak, begin);
+                
+            }else {
+                System.out.println("+--------------------------------------------+");
+                System.out.println("|   " + begin.infoKota + "   |   " + end.infoKota + "   |     Sudah Ada    |");
+                System.out.println("+--------------------------------------------+");
+            }
+        }
+    }
+
+    public static void searchStadt(Graph stadt, String name) {
+        Kota node = stadt.cariKota(name);
+        if (node != null) {
+            System.out.println("Kota " + name + "Ditemukan");
+        } else {
+            System.out.println("Kota" + name + "Tidak ditemukan");
+        }
     }
 }
