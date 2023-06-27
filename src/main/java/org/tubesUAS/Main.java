@@ -169,6 +169,9 @@ public class Main {
                             case 3:
                                 stadt.cetakGraph();
                                 break;
+                            default:
+                                throw new IllegalArgumentException("Input SALAH!!!");
+                                
                         }
                         break;
                     case 6:
@@ -185,43 +188,57 @@ public class Main {
                         System.out.println("3. Tiket PESAWAT");
                         System.out.print("Silahkan pilih menu beli tiket: ");
                         Integer tiket = masukkan.nextInt();
+                        int harga;
                         switch (tiket) {
                             case 1:
                                 String moda = "BUS";
-                                System.out.print("Beli tiket bus");
+                                System.out.println("Beli tiket bus");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
-                                int harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
-                                System.out.println("Tiket " + moda + " Atas Nama: " + bus.first.nama + " Berhasil Dibeli");
-                                bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
+                                if(checkJalur(stadt, asal, tujuan) == true){
+                                    stadt.cariJalur(stadt, asal, tujuan);
+                                    harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
+                                    System.out.println("Tiket " + moda + " Atas Nama: " + bus.first.nama + " Berhasil Dibeli");
+                                    bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
+                                }else{
+                                    System.out.println("Kota tidak ditemukan");
+                                }
                                 break;
                             case 2:
                                 moda = "KERETA";
-                                System.out.print("Beli tiket KERETA");
+                                System.out.println("Beli tiket KERETA");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
-                                harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
-                                System.out.println("Tiket " + moda + " Atas Nama: " + kereta.first.nama + " Berhasil Dibeli");
-                                kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
+                                if(checkJalur(stadt, asal, tujuan) == true){
+                                    harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
+                                    System.out.println("Tiket " + moda + " Atas Nama: " + kereta.first.nama + " Berhasil Dibeli");
+                                    kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
+                                }else{
+                                    System.out.println("Kota tidak ditemukan");
+                                }
                                 break;
                             case 3:
                                 moda = "PESAWAT";
-                                System.out.print("Beli tiket PESAWAT");
+                                System.out.println("Beli tiket PESAWAT");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.println("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
-                                harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
-                                System.out.println("Tiket " + moda + " Atas Nama: " + pesawat.first.nama + " Berhasil Dibeli");
-                                pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
+                                if(checkJalur(stadt, asal, tujuan) == true){
+                                    harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
+                                    System.out.println("Tiket " + moda + " Atas Nama: " + pesawat.first.nama + " Berhasil Dibeli");
+                                    pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
+                                }else{
+                                    System.out.println("Kota tidak ditemukan");
+                                }
                                 break;
                             default:
-                                System.out.println("Input salah");
-                                break;
+                                throw new IllegalArgumentException("Input SALAH!!!");
+                                
                         }
                         break;
                     case 8:
@@ -238,6 +255,7 @@ public class Main {
                         pesawatTerjual.tiketTerjual();
                         System.out.println("============================================");
                         System.out.println("============================================");
+                        break;
                     default:
                         throw new IllegalArgumentException("Inputan tidak Valid");
                 }
@@ -246,6 +264,8 @@ public class Main {
                 input.nextLine();
             }
         } while (pilihan != 0);
+        input.close();
+        masukkan.close();
 
     }
     public static void addNode(Graph stadt, String name){
@@ -287,7 +307,17 @@ public class Main {
             }
         }
     }
-
+    public static boolean checkJalur(Graph stadt, String asal, String tujuan){
+        Kota depart = stadt.cariKota(asal);
+        Kota arriv = stadt.cariKota(tujuan);
+        boolean ketemu = false;
+        if(stadt.cekJalur(depart, arriv) == true){
+            ketemu = true;
+            return ketemu;
+        }else{
+            return ketemu;
+        }
+    }
     public static void searchStadt(Graph stadt, String name) {
         Kota node = stadt.cariKota(name);
         if (node != null) {
