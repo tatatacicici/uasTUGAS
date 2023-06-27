@@ -48,6 +48,33 @@ public class Main {
         Antrian busTerjual = new Antrian();
         Antrian keretaTerjual = new Antrian();
         Antrian pesawatTerjual = new Antrian();
+        //Menambahkan 5 Kota Awal
+        stadt.tambahKota("Hamburg");
+        stadt.tambahKota("Frankfurt");
+        stadt.tambahKota("Stuttgart");
+        stadt.tambahKota("Munchen");
+        stadt.tambahKota("Berlin");
+        //Menambahkan Jalur Antar Kota
+        addEdge(stadt, "Hamburg", "Frankfurt", 493);
+        addEdge(stadt, "Hamburg", "Stuttgart", 656);
+        addEdge(stadt, "Hamburg", "Munchen", 791);
+        addEdge(stadt, "Hamburg", "Berlin", 289);
+        addEdge(stadt, "Frankfurt", "Stuttgart", 205);
+        addEdge(stadt, "Frankfurt", "Munchen", 393);
+        addEdge(stadt, "Frankfurt", "Berlin", 556);
+        addEdge(stadt, "Frankfurt", "Hamburg",493);
+        addEdge(stadt, "Stuttgart", "Munchen", 232);
+        addEdge(stadt, "Stuttgart", "Berlin", 638);
+        addEdge(stadt, "Stuttgart", "Hamburg", 656);
+        addEdge(stadt, "Stuttgart", "Frankfurt", 205);
+        addEdge(stadt, "Munchen", "Berlin", 590);
+        addEdge(stadt, "Munchen", "Hamburg", 791);
+        addEdge(stadt, "Munchen", "Frankfurt", 393);
+        addEdge(stadt, "Munchen", "Stuttgart", 232);
+        addEdge(stadt, "Berlin", "Hamburg", 289);
+        addEdge(stadt, "Berlin", "Frankfurt", 556);
+        addEdge(stadt, "Berlin", "Stuttgart", 638);
+        addEdge(stadt, "Berlin", "Munchen", 590);
 
         Scanner input = new Scanner(System.in);
         Scanner masukkan = new Scanner(System.in);
