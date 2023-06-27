@@ -48,22 +48,22 @@ public class Antrian {
     }
 
     void print() {
-        Quwewe elemenSementara = first;
-        int count = 0;
-        if (elemenSementara == null) {
-            System.out.println("Antrian Kosong");
-        } else {
-            while (elemenSementara != null) {
-                count++;
-                System.out.println("++++++++++++++++++++++");
-                System.out.println("Nama: " + (elemenSementara.nama));
-                System.out.println("No.antrian: " + count);
-                System.out.println("+++++++++++++++++++++++");
-                elemenSementara = elemenSementara.next;
-            }
+    Quwewe elemenSementara = first;
+    int count = 0;
+    if (elemenSementara == null) {
+        System.out.println("Antrian Kosong");
+    } else {
+        System.out.println("++++++++++++++++++++++++++++++++++");
+        System.out.println("| No. Antrian |       Nama       |");
+        System.out.println("++++++++++++++++++++++++++++++++++");
+        while (elemenSementara != null) {
+            count++;
+            System.out.printf("| %-11d | %-16s |\n", count, elemenSementara.nama);
+            elemenSementara = elemenSementara.next;
         }
-
+        System.out.println("++++++++++++++++++++++++++++++++++");
     }
+}
 
     public void beliTiket(Antrian antrian, String moda, String asal, String tujuan, int harga) {
         if (first == null) {
@@ -80,17 +80,27 @@ public class Antrian {
         if (elemenSementara == null) {
             System.out.println("Antrian Kosong");
         } else {
+            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+            System.out.println("|       Nama           |       Moda        |      Kota Asal       |     Kota Tujuan      |       Harga          |");
+            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+
+            int hargatotal = 0;
+
+            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+            System.out.println("|       Nama           |       Moda        |      Kota Asal       |     Kota Tujuan      |       Harga          |");
+            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+
             while (elemenSementara != null) {
-                System.out.println("++++++++++++++++++++++");
-                System.out.println("Nama: " + (elemenSementara.nama));
-                System.out.println("Moda: " + (elemenSementara.moda));
-                System.out.println("Kota Asal: " + (elemenSementara.asal));
-                System.out.println("Kota Tujuan: " + (elemenSementara.tujuan));
-                System.out.println("Harga: " + (elemenSementara.harga));
-                System.out.println("+++++++++++++++++++++++");
+                System.out.printf("| %-20s | %-17s | %-20s | %-20s | Rp.%-20s|\n", elemenSementara.nama, elemenSementara.moda, elemenSementara.asal, elemenSementara.tujuan, elemenSementara.harga);
+                hargatotal += elemenSementara.harga;
                 elemenSementara = elemenSementara.next;
             }
-        }
 
+            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+            System.out.printf("| Total Belanja                             : Rp.%-20s|\n", hargatotal);
+            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+
+            }
+        }
     }
-}
+
