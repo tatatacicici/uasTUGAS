@@ -13,6 +13,24 @@ public class Main {
         Antrian busTerjual = new Antrian();
         Antrian keretaTerjual = new Antrian();
         Antrian pesawatTerjual = new Antrian();
+        //Menambah 5 Antrian Bus
+        bus.enQueue("Arkan");
+        bus.enQueue("Bagas");
+        bus.enQueue("Cika");
+        bus.enQueue("Dika");
+        bus.enQueue("Ella");
+        //Menambah 5 Antrian Kereta
+        kereta.enQueue("Alma");
+        kereta.enQueue("Budi");
+        kereta.enQueue("Coki");
+        kereta.enQueue("Della");
+        kereta.enQueue("Evan");
+        //Menambah 5 Antrian Pesawat
+        pesawat.enQueue("Arya");
+        pesawat.enQueue("Bayu");
+        pesawat.enQueue("Carla");
+        pesawat.enQueue("Doni");
+        pesawat.enQueue("Hussain");
         //Menambahkan 5 Kota Awal
         stadt.tambahKota("Hamburg");
         stadt.tambahKota("Frankfurt");
@@ -58,7 +76,6 @@ public class Main {
                 System.out.println("6. Cari Jalur ");
                 System.out.println("7. Beli Tiket ");
                 System.out.println("8. Lihat Tiket Terjual ");
-                System.out.println("9. Kembali");
                 System.out.println("0. Keluar ");
                 System.out.print("Masukkan Pilihan : ");
                 pilihan = Integer.parseInt(input.nextLine());
@@ -182,81 +199,89 @@ public class Main {
                         stadt.cariJalur(stadt, awal, tujuan);
                         break;
                     case 7:
-                        System.out.println("BELI TIKET");
-                        System.out.println("1. Tiket BUS");
-                        System.out.println("2. Tiket KERETA");
-                        System.out.println("3. Tiket PESAWAT");
-                        System.out.print("Silahkan pilih menu beli tiket: ");
-                        Integer tiket = masukkan.nextInt();
-                        int harga;
-                        switch (tiket) {
-                            case 1:
-                                String moda = "BUS";
-                                System.out.println("Beli tiket bus");
-                                System.out.print("Masukkan Kota Asal Anda: ");
-                                asal = input.nextLine();
-                                System.out.println("Masukkan Kota Tujuan Anda: ");
-                                tujuan = input.nextLine();
-                                if(checkJalur(stadt, asal, tujuan) == true){
-                                    stadt.cariJalur(stadt, asal, tujuan);
-                                    harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
-                                    System.out.println("Tiket " + moda + " Atas Nama: " + bus.first.nama + " Berhasil Dibeli");
-                                    bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
-                                }else{
-                                    System.out.println("Kota tidak ditemukan");
-                                }
-                                break;
-                            case 2:
-                                moda = "KERETA";
-                                System.out.println("Beli tiket KERETA");
-                                System.out.print("Masukkan Kota Asal Anda: ");
-                                asal = input.nextLine();
-                                System.out.println("Masukkan Kota Tujuan Anda: ");
-                                tujuan = input.nextLine();
-                                if(checkJalur(stadt, asal, tujuan) == true){
-                                    harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
-                                    System.out.println("Tiket " + moda + " Atas Nama: " + kereta.first.nama + " Berhasil Dibeli");
-                                    kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
-                                }else{
-                                    System.out.println("Kota tidak ditemukan");
-                                }
-                                break;
-                            case 3:
-                                moda = "PESAWAT";
-                                System.out.println("Beli tiket PESAWAT");
-                                System.out.print("Masukkan Kota Asal Anda: ");
-                                asal = input.nextLine();
-                                System.out.println("Masukkan Kota Tujuan Anda: ");
-                                tujuan = input.nextLine();
-                                if(checkJalur(stadt, asal, tujuan) == true){
-                                    harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
-                                    System.out.println("Tiket " + moda + " Atas Nama: " + pesawat.first.nama + " Berhasil Dibeli");
-                                    pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
-                                }else{
-                                    System.out.println("Kota tidak ditemukan");
-                                }
-                                break;
-                            default:
-                                throw new IllegalArgumentException("Input SALAH!!!");
-                                
+                        if((bus.isEmpty() && kereta.isEmpty() && pesawat.isEmpty()) == false){
+                            System.out.println("BELI TIKET");
+                            System.out.println("1. Tiket BUS");
+                            System.out.println("2. Tiket KERETA");
+                            System.out.println("3. Tiket PESAWAT");
+                            System.out.print("Silahkan pilih menu beli tiket: ");
+                            Integer tiket = masukkan.nextInt();
+                            int harga;
+                            switch (tiket) {
+                                case 1:
+                                    String moda = "BUS";
+                                    System.out.println("Beli tiket bus");
+                                    System.out.print("Masukkan Kota Asal Anda: ");
+                                    asal = input.nextLine();
+                                    System.out.print("Masukkan Kota Tujuan Anda: ");
+                                    tujuan = input.nextLine();
+                                    if(checkJalur(stadt, asal, tujuan) == true){
+                                        stadt.cariJalur(stadt, asal, tujuan);
+                                        harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
+                                        System.out.print("Tiket " + moda + " Atas Nama: " + bus.first.nama + " Berhasil Dibeli");
+                                        bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
+                                    }else{
+                                        System.out.println("Kota tidak ditemukan");
+                                    }
+                                    break;
+                                case 2:
+                                    moda = "KERETA";
+                                    System.out.println("Beli tiket KERETA");
+                                    System.out.print("Masukkan Kota Asal Anda: ");
+                                    asal = input.nextLine();
+                                    System.out.print("Masukkan Kota Tujuan Anda: ");
+                                    tujuan = input.nextLine();
+                                    if(checkJalur(stadt, asal, tujuan) == true){
+                                        harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
+                                        System.out.println("Tiket " + moda + " Atas Nama: " + kereta.first.nama + " Berhasil Dibeli");
+                                        kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
+                                    }else{
+                                        System.out.println("Kota tidak ditemukan");
+                                    }
+                                    break;
+                                case 3:
+                                    moda = "PESAWAT";
+                                    System.out.println("Beli tiket PESAWAT");
+                                    System.out.print("Masukkan Kota Asal Anda: ");
+                                    asal = input.nextLine();
+                                    System.out.print("Masukkan Kota Tujuan Anda: ");
+                                    tujuan = input.nextLine();
+                                    if(checkJalur(stadt, asal, tujuan) == true){
+                                        harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
+                                        System.out.println("Tiket " + moda + " Atas Nama: " + pesawat.first.nama + " Berhasil Dibeli");
+                                        pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
+                                    }else{
+                                        System.out.println("Kota tidak ditemukan");
+                                    }
+                                    break;
+                                default:
+                                    throw new IllegalArgumentException("Input SALAH!!!");
+                                    
+                            }
+                        }else{
+                            System.out.println("Antrian Kosong");
                         }
                         break;
                     case 8:
                         System.out.println("Menu Lihat Tiket Terjual");
                         System.out.println("Tiket Terjual Pada Moda Transportasi BUS");
                         busTerjual.tiketTerjual();
-                        System.out.println("========================================");
-                        System.out.println("========================================");
+                        System.out.println("=================================================================================================================");
+                        System.out.println("=================================================================================================================");
                         System.out.println("Tiket Terjual Pada Moda Transportasi KERETA");
                         keretaTerjual.tiketTerjual();
-                        System.out.println("===========================================");
-                        System.out.println("========================================");
+                        System.out.println("=================================================================================================================");
+                        System.out.println("=================================================================================================================");
                         System.out.println("Tiket Terjual Pada Moda Transportasi PESAWAT");
                         pesawatTerjual.tiketTerjual();
-                        System.out.println("============================================");
-                        System.out.println("============================================");
+                        System.out.println("=================================================================================================================");
+                        System.out.println("=================================================================================================================");
+                        int hargatotal = busTerjual.hargatotal + keretaTerjual.hargatotal + pesawat.hargatotal;
+                        System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+                        System.out.printf("| Total Belanja                                                                          : Rp.%-18s|\n", hargatotal);
+                        System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
                         break;
-                    default:
+                        default:
                         throw new IllegalArgumentException("Inputan tidak Valid");
                 }
             } catch (Exception e) {
@@ -272,12 +297,11 @@ public class Main {
         Kota node = stadt.cariKota(name);
         if (node == null){
             stadt.tambahKota(name);;
-            System.out.printf("|   %-13s| Ditambah  |\n",name);
-            System.out.println("------------------------------");
+            System.out.printf ("Kota    %-13s Ditambah  |\n",name);
         }else {
-            System.out.println("|   " + name + "   |   Sudah Ada |");
-            System.out.println("---------------------------------");
+            System.out.println("Kota " + name + " Sudah Ada ");
         }
+
     }
     public static void addEdge(Graph stadt, String ori, String dest, int jarak){
         Kota end = stadt.cariKota(dest);
@@ -285,10 +309,9 @@ public class Main {
         if((begin != null) && (end != null)){
             if(!stadt.cekJalur(begin, end)){
                 stadt.tambahJalur(end, jarak, begin);
-                System.out.printf("|   %-13s|  %-15s| %-10d|\n", begin.infoKota,end.infoKota, jarak);
-                System.out.println("------------------------------------------------");
+                System.out.println("Jalur "+begin.infoKota+"-"+end.infoKota+": "+ jarak+"Km DITAMBAH !");
             }else {
-                System.out.println("|   " + begin.infoKota + "   |   " + end.infoKota + "   |     Sudah Ada    |");
+                System.out.println("Jalur "+begin.infoKota+"-"+end.infoKota+"SUDAH ADA!!!!");
                 System.out.println("----------------------------------------------");
             }
         }
