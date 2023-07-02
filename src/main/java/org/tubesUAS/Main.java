@@ -209,7 +209,7 @@ public class Main {
                                 System.out.print("Beli tiket bus");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
-                                System.out.println("Masukkan Kota Tujuan Anda: ");
+                                System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 int harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
                                 System.out.println("Tiket " + moda + " Atas Nama: " + bus.first.nama + " Berhasil Dibeli");
@@ -220,7 +220,7 @@ public class Main {
                                 System.out.print("Beli tiket KERETA");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
-                                System.out.println("Masukkan Kota Tujuan Anda: ");
+                                System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
                                 System.out.println("Tiket " + moda + " Atas Nama: " + kereta.first.nama + " Berhasil Dibeli");
@@ -231,7 +231,7 @@ public class Main {
                                 System.out.print("Beli tiket PESAWAT");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
-                                System.out.println("Masukkan Kota Tujuan Anda: ");
+                                System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
                                 System.out.println("Tiket " + moda + " Atas Nama: " + pesawat.first.nama + " Berhasil Dibeli");
