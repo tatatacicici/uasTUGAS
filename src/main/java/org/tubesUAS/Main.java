@@ -206,35 +206,38 @@ public class Main {
                         switch (tiket) {
                             case 1:
                                 String moda = "BUS";
-                                System.out.print("Beli tiket bus");
+                                System.out.println("Beli tiket bus");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 int harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
                                 System.out.println("Tiket " + moda + " Atas Nama: " + bus.first.nama + " Berhasil Dibeli");
+                                System.out.println("Tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
                                 break;
                             case 2:
                                 moda = "KERETA";
-                                System.out.print("Beli tiket KERETA");
+                                System.out.println("Beli tiket KERETA");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
                                 System.out.println("Tiket " + moda + " Atas Nama: " + kereta.first.nama + " Berhasil Dibeli");
+                                System.out.println("Tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
                                 break;
                             case 3:
                                 moda = "PESAWAT";
-                                System.out.print("Beli tiket PESAWAT");
+                                System.out.println("Beli tiket PESAWAT");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
                                 System.out.println("Tiket " + moda + " Atas Nama: " + pesawat.first.nama + " Berhasil Dibeli");
+                                System.out.println("Tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
                                 break;
                             default:
@@ -256,6 +259,7 @@ public class Main {
                         pesawatTerjual.tiketTerjual();
                         System.out.println("============================================");
                         System.out.println("============================================");
+                        break;
                     default:
                         throw new IllegalArgumentException("Inputan tidak Valid");
                 }

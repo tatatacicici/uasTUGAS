@@ -80,24 +80,19 @@ public class Antrian {
         if (elemenSementara == null) {
             System.out.println("Antrian Kosong");
         } else {
-            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
-            System.out.println("|       Nama           |       Moda        |      Kota Asal       |     Kota Tujuan      |       Harga          |");
-            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
-
             int hargatotal = 0;
-
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
             System.out.println("|       Nama           |       Moda        |      Kota Asal       |     Kota Tujuan      |       Harga          |");
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
 
             while (elemenSementara != null) {
-                System.out.printf("| %-20s | %-17s | %-20s | %-20s | Rp.%-20s|\n", elemenSementara.nama, elemenSementara.moda, elemenSementara.asal, elemenSementara.tujuan, elemenSementara.harga);
+                System.out.printf("| %-20s | %-17s | %-20s | %-20s | Rp.%-18s|\n", elemenSementara.nama, elemenSementara.moda, elemenSementara.asal, elemenSementara.tujuan, elemenSementara.harga);
                 hargatotal += elemenSementara.harga;
                 elemenSementara = elemenSementara.next;
             }
 
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
-            System.out.printf("| Total Belanja                             : Rp.%-20s|\n", hargatotal);
+            System.out.printf("| Total Belanja                                                                            : Rp.%-16s|\n", hargatotal);
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
 
             }
