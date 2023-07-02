@@ -5,11 +5,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Graph stadt = new Graph();
-
+        //objek antrian awal
         Antrian bus = new Antrian();
         Antrian kereta = new Antrian();
         Antrian pesawat = new Antrian();
-
+        //objek antrian beli/terjual
         Antrian busTerjual = new Antrian();
         Antrian keretaTerjual = new Antrian();
         Antrian pesawatTerjual = new Antrian();
@@ -40,6 +40,24 @@ public class Main {
         addEdges(stadt, "Berlin", "Frankfurt", 556);
         addEdges(stadt, "Berlin", "Stuttgart", 638);
         addEdges(stadt, "Berlin", "Munchen", 590);
+        //Menambah 5 Antrian Bus
+        bus.enQueue("Arkan");
+        bus.enQueue("Bagas");
+        bus.enQueue("Cika");
+        bus.enQueue("Dika");
+        bus.enQueue("Ella");
+        //Menambah 5 Antrian Kereta
+        kereta.enQueue("Alma");
+        kereta.enQueue("Budi");
+        kereta.enQueue("Coki");
+        kereta.enQueue("Della");
+        kereta.enQueue("Evan");
+        //Menambah 5 Antrian Pesawat
+        pesawat.enQueue("Arya");
+        pesawat.enQueue("Bayu");
+        pesawat.enQueue("Carla");
+        pesawat.enQueue("Doni");
+        pesawat.enQueue("Hussain");
 
         Scanner input = new Scanner(System.in);
         Scanner masukkan = new Scanner(System.in);
