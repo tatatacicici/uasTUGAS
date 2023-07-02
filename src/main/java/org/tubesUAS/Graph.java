@@ -155,32 +155,66 @@ public class Graph {
         return jumlahKota;
     }
 
+    // public void cetakGraph() {
+    //     Kota node = firstKota;
+    //     if (node != null) {
+    //         System.out.println("+----------------------------------------------------+");
+    //         System.out.printf("| %-20s | %-27s |\n", "Kota", "Jalur");
+    //         System.out.println("+----------------------------------------------------+");
+    //         while (node != null) {
+    //             jumlahKota++;
+    //             String infoKota = node.infoKota;
+    //             String jalurKota = "";
+
+    //             Jalur jlr = node.jalur;
+    //             while (jlr != null) {
+    //                 jalurKota += jlr.kota.infoKota + ", ";
+    //                 jlr = jlr.nextJalur;
+    //             }
+
+    //             if (!jalurKota.isEmpty()) {
+    //                 jalurKota = jalurKota.substring(0, jalurKota.length() - 2); // Remove trailing comma and space
+    //             }
+
+    //             System.out.printf("| %-20s | %-27s |\n", infoKota, jalurKota);
+
+    //             node = node.nextKota;
+    //         }
+    //         System.out.println("+----------------------------------------------------+");
+    //     } else {
+    //         System.out.println("Graph kosong");
+    //     }
+    // }
     public void cetakGraph() {
         Kota node = firstKota;
         if (node != null) {
-            System.out.println("+----------------------------------------------------+");
-            System.out.printf("| %-20s | %-27s |\n", "Kota", "Jalur");
-            System.out.println("+----------------------------------------------------+");
+            System.out.println("+-------------------------------+");
+            System.out.printf("| %-12s | %-14s |\n", "Kota", "Jalur");
+            System.out.println("+-------------------------------+");
             while (node != null) {
-                jumlahKota++;
                 String infoKota = node.infoKota;
                 String jalurKota = "";
 
                 Jalur jlr = node.jalur;
                 while (jlr != null) {
-                    jalurKota += jlr.kota.infoKota + ", ";
+                    jalurKota += jlr.kota.infoKota + "\n";
                     jlr = jlr.nextJalur;
                 }
 
                 if (!jalurKota.isEmpty()) {
-                    jalurKota = jalurKota.substring(0, jalurKota.length() - 2); // Remove trailing comma and space
+                    jalurKota = jalurKota.substring(0, jalurKota.length() - 1); // Remove trailing newline
                 }
 
-                System.out.printf("| %-20s | %-27s |\n", infoKota, jalurKota);
+                System.out.printf("| %-12s | %-14s |\n", infoKota, ""); // Cetak kosong untuk kolom Kota
+
+                String[] jalurArray = jalurKota.split("\n"); // Pisahkan jalur-jalur berdasarkan newline
+                for (String jalur : jalurArray) {
+                    System.out.printf("| %-12s | %-14s |\n", "", jalur); // Cetak jalur per baris
+                }
 
                 node = node.nextKota;
             }
-            System.out.println("+----------------------------------------------------+");
+            System.out.println("+-------------------------------+");
         } else {
             System.out.println("Graph kosong");
         }
