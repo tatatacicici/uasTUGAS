@@ -218,14 +218,17 @@ public class Main {
                         Integer tiket = masukkan.nextInt();
                         switch (tiket) {
                             case 1:
+
                                 String moda = "Bus";
                                 System.out.println("");
                                 System.out.println("    ==== Beli tiket Bus ====    ");
+
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 int harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
+
                                 System.out.println("Tiket " + moda + " Atas Nama " + bus.first.nama + " Berhasil Dibeli");
                                 System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
@@ -234,11 +237,13 @@ public class Main {
                                 moda = "Kereta";
                                 System.out.println("");
                                 System.out.println("    ==== Beli tiket Kereta ====     ");
+
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
+
                                 System.out.println("Tiket " + moda + " Atas Nama " + kereta.first.nama + " Berhasil Dibeli");
                                 System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
@@ -252,8 +257,10 @@ public class Main {
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
+
                                 System.out.println("Tiket " + moda + " Atas Nama " + pesawat.first.nama + " Berhasil Dibeli");
                                 System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
+
                                 pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
                                 break;
                             default:
