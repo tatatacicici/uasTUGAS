@@ -2,7 +2,7 @@ package org.tubesUAS;
 
 public class Antrian {
     Quwewe first;
-    public int hargatotal = 0;
+
     Antrian() {
         first = null;
     }
@@ -53,15 +53,16 @@ public class Antrian {
     if (elemenSementara == null) {
         System.out.println("Antrian Kosong");
     } else {
-        System.out.println("++++++++++++++++++++++++++++++++++");
-        System.out.println("| No. Antrian |       Nama       |");
-        System.out.println("++++++++++++++++++++++++++++++++++");
+        System.out.println("---------------------------------------");
+        System.out.println("| No. Antrian |      Nama             |");
+        System.out.println("---------------------------------------");
         while (elemenSementara != null) {
             count++;
-            System.out.printf("| %-11d | %-16s |\n", count, elemenSementara.nama);
+//            System.out.printf("| No. Antrian |       Nama        |");
+            System.out.printf("|      %-6d |      %-10s       |\n", count, elemenSementara.nama);
             elemenSementara = elemenSementara.next;
         }
-        System.out.println("++++++++++++++++++++++++++++++++++");
+        System.out.println("---------------------------------------");
     }
 }
 
@@ -78,20 +79,21 @@ public class Antrian {
     void tiketTerjual() {
         Quwewe elemenSementara = first;
         if (elemenSementara == null) {
-            System.out.println("Antrian Kosong");
+            System.out.println("                Antrian Kosong             ");
         } else {
-
+            int hargatotal = 0;
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
             System.out.println("|       Nama           |       Moda        |      Kota Asal       |     Kota Tujuan      |       Harga          |");
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+
             while (elemenSementara != null) {
-                System.out.printf("| %-20s | %-17s | %-20s | %-20s |Rp.%-19s|\n", elemenSementara.nama, elemenSementara.moda, elemenSementara.asal, elemenSementara.tujuan, elemenSementara.harga);
+                System.out.printf("| %-20s | %-17s | %-20s | %-20s | Rp.%-18s|\n", elemenSementara.nama, elemenSementara.moda, elemenSementara.asal, elemenSementara.tujuan, elemenSementara.harga);
                 hargatotal += elemenSementara.harga;
                 elemenSementara = elemenSementara.next;
             }
 
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
-            System.out.printf("| Total Belanja                                                                          : Rp.%-18s|\n", hargatotal);
+            System.out.printf("| Total Belanja                                                                            Rp.%-18s|\n", hargatotal);
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
 
             }
