@@ -53,15 +53,16 @@ public class Antrian {
     if (elemenSementara == null) {
         System.out.println("Antrian Kosong");
     } else {
-        System.out.println("++++++++++++++++++++++++++++++++++");
-        System.out.println("| No. Antrian |       Nama       |");
-        System.out.println("++++++++++++++++++++++++++++++++++");
+        System.out.println("---------------------------------------");
+        System.out.println("| No. Antrian |      Nama             |");
+        System.out.println("---------------------------------------");
         while (elemenSementara != null) {
             count++;
-            System.out.printf("| %-11d | %-16s |\n", count, elemenSementara.nama);
+//            System.out.printf("| No. Antrian |       Nama        |");
+            System.out.printf("|      %-6d |      %-10s       |\n", count, elemenSementara.nama);
             elemenSementara = elemenSementara.next;
         }
-        System.out.println("++++++++++++++++++++++++++++++++++");
+        System.out.println("---------------------------------------");
     }
 }
 
@@ -78,7 +79,7 @@ public class Antrian {
     void tiketTerjual() {
         Quwewe elemenSementara = first;
         if (elemenSementara == null) {
-            System.out.println("Antrian Kosong");
+            System.out.println("                Antrian Kosong             ");
         } else {
             int hargatotal = 0;
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
@@ -92,8 +93,9 @@ public class Antrian {
             }
 
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
-            System.out.printf("| Total Belanja                                                                            : Rp.%-16s|\n", hargatotal);
-            System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
+
+            System.out.printf("| Total Belanja                                                                            Rp.%-18s|\n", hargatotal);
+
 
             }
         }

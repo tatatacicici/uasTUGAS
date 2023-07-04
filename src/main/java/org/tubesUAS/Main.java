@@ -1,7 +1,7 @@
 package org.tubesUAS;
 
 import java.util.Scanner;
-
+import java.util.NoSuchElementException;
 public class Main {
     public static void main(String[] args) {
         Graph stadt = new Graph();
@@ -65,6 +65,7 @@ public class Main {
         int layanan;
         do {
             try {
+                System.out.println("");
                 System.out.println("===============================");
                 System.out.println("    Antrian Pembelian Tiket    ");
                 System.out.println("===============================");
@@ -76,7 +77,6 @@ public class Main {
                 System.out.println("6. Cari Jalur ");
                 System.out.println("7. Beli Tiket ");
                 System.out.println("8. Lihat Tiket Terjual ");
-                System.out.println("9. Kembali");
                 System.out.println("0. Keluar ");
                 System.out.print("Masukkan Pilihan : ");
                 pilihan = Integer.parseInt(input.nextLine());
@@ -86,10 +86,13 @@ public class Main {
                         System.exit(0);
                         break;
                     case 1:
-                        System.out.println("TAMBAH ANTRIAN");
-                        System.out.println("1) BUS");
-                        System.out.println("2) KERETA");
-                        System.out.println("3) PESAWAT");
+                        System.out.println("");
+                        System.out.println("━━━━━━━━━━");
+                        System.out.println(" Tambah Antrian ");
+                        System.out.println("━━━━━━━━━━");
+                        System.out.println("1) Bus");
+                        System.out.println("2) Kereta");
+                        System.out.println("3) Pesawat");
                         System.out.print("Pilih jenis antrian: ");
                         layanan = Integer.parseInt(input.nextLine());
                         String nama_pnp;
@@ -98,42 +101,46 @@ public class Main {
                                 System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
                                 bus.enQueue(nama_pnp);
+                                System.out.println("Antrian Bus dengan nama " +nama_pnp + " ditambahkan");
                                 break;
                             case 2:
                                 System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
                                 kereta.enQueue(nama_pnp);
+                                System.out.println("Antrian Kereta dengan nama " +nama_pnp + " ditambahkan");
                                 break;
                             case 3:
                                 System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
                                 pesawat.enQueue(nama_pnp);
+                                System.out.println("Antrian Pesawat dengan nama " +nama_pnp + " ditambahkan");
                                 break;
                             default:
-                                throw new IllegalArgumentException("Jenis Antrian Tidak VALID!!!!");
+                                throw new IllegalArgumentException("Jenis Antrian Tidak Valid!!!");
                         }
                         break;
                     case 2:
-                        System.out.println("\tLihat Antrian");
+                        System.out.println("\t  ━━━━━━━━━━");
+                        System.out.println("\t    Lihat Antrian ");
+                        System.out.println("\t  ━━━━━━━━━━");
                         if (bus.isEmpty() && kereta.isEmpty() && pesawat.isEmpty()) {
                             System.out.println("Antrian Kosong");
                         } else {
-                            System.out.println("\tAntrian Bus");
+                            System.out.println("\n============= ANTRIAN BUS =============");
                             bus.print();
-                            System.out.println("===================");
-                            System.out.println("\tAntrian Kereta");
+                            System.out.println("\n=========== ANTRIAN KERETA ============");
                             kereta.print();
-                            System.out.println("===================");
-                            System.out.println("\tAntrian Pesawat");
+                            System.out.println("\n=========== ANTRIAN PESAWAT ===========");
                             pesawat.print();
-                            System.out.println("===================");
                         }
                         break;
                     case 3:
-                        System.out.println("KELOLA KOTA");
-                        System.out.println("1) TAMBAH KOTA");
-                        System.out.println("2) HAPUS KOTA");
-                        System.out.println("3) LIHAT KOTA");
+                        System.out.println("━━━━━━━━━━");
+                        System.out.println("   Kelola Kota  ");
+                        System.out.println("━━━━━━━━━━");
+                        System.out.println("1) Tambah Kota");
+                        System.out.println("2) Hapus Kota");
+                        System.out.println("3) Lihat Kota");
                         System.out.print("Pilih tindakan: ");
                         int kelola = Integer.parseInt(input.nextLine());
                         String asal;
@@ -152,7 +159,7 @@ public class Main {
                                 stadt.cetakGraph();
                                 break;
                             default:
-                                throw new IllegalArgumentException("Input SALAH!!!");
+                                throw new IllegalArgumentException("Inputan Salah!!!");
                         }
                         break;
                     case 4:
@@ -161,10 +168,12 @@ public class Main {
                         searchStadt(stadt, cari);
                         break;
                     case 5:
-                        System.out.println("KELOLA JALUR");
-                        System.out.println("1) TAMBAH JALUR");
-                        System.out.println("2) HAPUS JALUR");
-                        System.out.println("3) LIHAT JALUR");
+                        System.out.println("━━━━━━━━━━");
+                        System.out.println("  Kelola Jalur  ");
+                        System.out.println("━━━━━━━━━━");
+                        System.out.println("1) Tambah Jalur");
+                        System.out.println("2) Hapus Jalur");
+                        System.out.println("3) Lihat Jalur");
                         System.out.print("Pilih tindakan: ");
                         int lajur = masukkan.nextInt();
                         String awal, tujuan;
@@ -187,6 +196,8 @@ public class Main {
                             case 3:
                                 stadt.cetakGraph();
                                 break;
+                            default :
+                                throw new IllegalArgumentException("Inputan Salah!!!");
                         }
                         break;
                     case 6:
@@ -197,75 +208,85 @@ public class Main {
                         stadt.cariJalur(stadt, awal, tujuan);
                         break;
                     case 7:
-                        System.out.println("BELI TIKET");
-                        System.out.println("1. Tiket BUS");
-                        System.out.println("2. Tiket KERETA");
-                        System.out.println("3. Tiket PESAWAT");
+                        System.out.println("━━━━━━━━━━");
+                        System.out.println("   Beli Tiket   ");
+                        System.out.println("━━━━━━━━━━");
+                        System.out.println("1) Tiket Bus");
+                        System.out.println("2) Tiket Kereta");
+                        System.out.println("3) Tiket Pesawat");
                         System.out.print("Silahkan pilih menu beli tiket: ");
                         Integer tiket = masukkan.nextInt();
                         switch (tiket) {
                             case 1:
-                                String moda = "BUS";
-                                System.out.println("Beli tiket bus");
+
+                                String moda = "Bus";
+                                System.out.println("");
+                                System.out.println("    ==== Beli tiket Bus ====    ");
+
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 int harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
-                                System.out.println("Tiket " + moda + " Atas Nama: " + bus.first.nama + " Berhasil Dibeli");
-                                System.out.println("Tiket "+asal+"-"+tujuan+": Rp."+harga);
+
+                                System.out.println("Tiket " + moda + " Atas Nama " + bus.first.nama + " Berhasil Dibeli");
+                                System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
                                 break;
                             case 2:
-                                moda = "KERETA";
-                                System.out.println("Beli tiket KERETA");
+                                moda = "Kereta";
+                                System.out.println("");
+                                System.out.println("    ==== Beli tiket Kereta ====     ");
+
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
-                                System.out.println("Tiket " + moda + " Atas Nama: " + kereta.first.nama + " Berhasil Dibeli");
-                                System.out.println("Tiket "+asal+"-"+tujuan+": Rp."+harga);
+
+                                System.out.println("Tiket " + moda + " Atas Nama " + kereta.first.nama + " Berhasil Dibeli");
+                                System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
                                 break;
                             case 3:
-                                moda = "PESAWAT";
-                                System.out.println("Beli tiket PESAWAT");
+                                moda = "Pesawat";
+                                System.out.println("");
+                                System.out.println("    ==== Beli tiket Pesawat ====    ");
                                 System.out.print("Masukkan Kota Asal Anda: ");
                                 asal = input.nextLine();
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
-                                System.out.println("Tiket " + moda + " Atas Nama: " + pesawat.first.nama + " Berhasil Dibeli");
-                                System.out.println("Tiket "+asal+"-"+tujuan+": Rp."+harga);
+
+                                System.out.println("Tiket " + moda + " Atas Nama " + pesawat.first.nama + " Berhasil Dibeli");
+                                System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
+
                                 pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
                                 break;
                             default:
-                                System.out.println("Input salah");
+                                System.out.println("Inputan salah!!!");
                                 break;
                         }
                         break;
                     case 8:
-                        System.out.println("Menu Lihat Tiket Terjual");
-                        System.out.println("Tiket Terjual Pada Moda Transportasi BUS");
+                        System.out.println("\n                ================== TIKET TERJUAL PADA MODA TRANSPORTASI BUS =================");
                         busTerjual.tiketTerjual();
-                        System.out.println("========================================");
-                        System.out.println("========================================");
-                        System.out.println("Tiket Terjual Pada Moda Transportasi KERETA");
+                        System.out.println("\n                ================ TIKET TERJUAL PADA MODA TRANSPORTASI KERETA ================");
                         keretaTerjual.tiketTerjual();
-                        System.out.println("===========================================");
-                        System.out.println("========================================");
-                        System.out.println("Tiket Terjual Pada Moda Transportasi PESAWAT");
+                        System.out.println("\n                ================ TIKET TERJUAL PADA MODA TRANSPORTASI PESAWAT ================");
                         pesawatTerjual.tiketTerjual();
-                        System.out.println("============================================");
-                        System.out.println("============================================");
                         break;
                     default:
                         throw new IllegalArgumentException("Inputan tidak Valid");
                 }
-            } catch (Exception e) {
-                System.out.println("Terjadi kesalahan: " + e.getMessage());
-                input.nextLine();
+            } catch (NumberFormatException e) {
+                System.out.println("Input tidak valid. Masukkan angka yang valid!");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Input tidak valid. Pilihan tidak sesuai!");
+            } catch (NoSuchElementException e) {
+                System.out.println("Input tidak boleh kosong!");
+            } catch (NullPointerException e) {
+                System.out.println("Kota / Jalur tidak ada!!!");
             }
         } while (pilihan != 0);
 
@@ -274,11 +295,13 @@ public class Main {
         Kota node = stadt.cariKota(name);
         if (node == null){
             stadt.tambahKota(name);;
-            System.out.printf("|   %-13s| Ditambah  |\n",name);
-            System.out.println("------------------------------");
+              System.out.println("Kota " +name + " ditambahkan");
+//            System.out.printf("|   %-13s| Ditambah  |\n",name);
+//            System.out.println("------------------------------");
         }else {
-            System.out.println("|   " + name + "   |   Sudah Ada |");
-            System.out.println("---------------------------------");
+              System.out.println("Kota " +name + " Sudah ada!");
+//            System.out.println("|   " + name + "   |   Sudah Ada |");
+//            System.out.println("---------------------------------");
         }
     }
     public static void addEdge(Graph stadt, String ori, String dest, int jarak){
@@ -287,11 +310,13 @@ public class Main {
         if((begin != null) && (end != null)){
             if(!stadt.cekJalur(begin, end)){
                 stadt.tambahJalur(end, jarak, begin);
-                System.out.printf("|   %-13s|  %-15s| %-10d|\n", begin.infoKota,end.infoKota, jarak);
-                System.out.println("------------------------------------------------");
+                System.out.println("Jalur dari kota " +begin.infoKota+ " ke kota " +end.infoKota+ " ditambahkan");
+//                System.out.printf("|   %-13s|  %-15s| %-10d|\n", begin.infoKota,end.infoKota, jarak);
+//                System.out.println("------------------------------------------------");
             }else {
-                System.out.println("|   " + begin.infoKota + "   |   " + end.infoKota + "   |     Sudah Ada    |");
-                System.out.println("----------------------------------------------");
+                System.out.println("Jalur dari kota " +begin.infoKota+ " ke kota " +end.infoKota+ " sudah ada!");
+//                System.out.println("|   " + begin.infoKota + "   |   " + end.infoKota + "   |     Sudah Ada    |");
+//                System.out.println("----------------------------------------------");
             }
         }
     }
@@ -303,9 +328,10 @@ public class Main {
                 stadt.tambahJalur(end, jarak, begin);
                 
             }else {
-                System.out.println("+--------------------------------------------+");
-                System.out.println("|   " + begin.infoKota + "   |   " + end.infoKota + "   |     Sudah Ada    |");
-                System.out.println("+--------------------------------------------+");
+                System.out.println("Jalur dari kota " +begin.infoKota+ " ke kota " +end.infoKota+ " sudah ada!");
+//                System.out.println("+--------------------------------------------+");
+//                System.out.println("|   " + begin.infoKota + "   |   " + end.infoKota + "   |     Sudah Ada    |");
+//                System.out.println("+--------------------------------------------+");
             }
         }
     }
@@ -313,9 +339,9 @@ public class Main {
     public static void searchStadt(Graph stadt, String name) {
         Kota node = stadt.cariKota(name);
         if (node != null) {
-            System.out.println("Kota " + name + "Ditemukan");
+            System.out.println("Kota " + name + " Ditemukan");
         } else {
-            System.out.println("Kota" + name + "Tidak ditemukan");
+            System.out.println("Kota " + name + " Tidak ditemukan!");
         }
     }
 }
