@@ -112,7 +112,7 @@ public class Main {
                                 } else {
                                     System.out.println("Nama tidak boleh kosong. Antrian tidak ditambahkan.");
                                 }
-
+                                break;
                             case 2:
                                 System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
@@ -123,24 +123,19 @@ public class Main {
                                 } else {
                                     System.out.println("Nama tidak boleh kosong. Antrian tidak ditambahkan.");
                                 }
-
                                 break;
                             case 3:
-                                System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
-
                                 if (!nama_pnp.isEmpty()) {
                                     pesawat.enQueue(nama_pnp);
                                     System.out.println("Antrian Pesawat dengan nama " + nama_pnp + " ditambahkan");
                                 } else {
                                     System.out.println("Nama tidak boleh kosong. Antrian tidak ditambahkan.");
                                 }
-                                pesawat.enQueue(nama_pnp);
-                                System.out.println("Antrian Pesawat dengan nama " +nama_pnp + " ditambahkan");
-
                                 break;
-
-                            default:
+                        }
+                        break;
+                    case 2:
                         System.out.println("\t  ━━━━━━━━━━");
                         System.out.println("\t    Lihat Antrian ");
                         System.out.println("\t  ━━━━━━━━━━");
@@ -314,7 +309,7 @@ public class Main {
                             default:
                                 System.out.println("Inputan salah!!!");
                                 break;
-                        }
+                    }
                         break;
                     case 8:
                         System.out.println("\n                ================== TIKET TERJUAL PADA MODA TRANSPORTASI BUS =================");
@@ -330,6 +325,7 @@ public class Main {
                     default:
                         throw new IllegalArgumentException("Inputan tidak Valid");
                 }
+            
             } catch (NumberFormatException e) {
                 System.out.println("Input tidak valid. Masukkan angka yang valid!");
             } catch (IllegalArgumentException e) {
