@@ -1,12 +1,21 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.tubesUAS;
 
+/**
+ *
+ * @author Acer
+ */
 public class Antrian {
     Quwewe first;
 
     Antrian() {
         first = null;
     }
-
+    public int  hargatotal = 0;
     void enQueue(String nama) {
         Quwewe antrian_baru = new Quwewe(nama);
         if (first == null) {
@@ -53,34 +62,37 @@ public class Antrian {
     if (elemenSementara == null) {
         System.out.println("Antrian Kosong");
     } else {
-        System.out.println("++++++++++++++++++++++++++++++++++");
-        System.out.println("| No. Antrian |       Nama       |");
-        System.out.println("++++++++++++++++++++++++++++++++++");
+        System.out.println("---------------------------------------");
+        System.out.println("| No. Antrian |      Nama             |");
+        System.out.println("---------------------------------------");
         while (elemenSementara != null) {
             count++;
-            System.out.printf("| %-11d | %-16s |\n", count, elemenSementara.nama);
+//            System.out.printf("| No. Antrian |       Nama        |");
+            System.out.printf("|      %-6d |      %-10s       |\n", count, elemenSementara.nama);
             elemenSementara = elemenSementara.next;
         }
-        System.out.println("++++++++++++++++++++++++++++++++++");
+        System.out.println("---------------------------------------");
     }
 }
 
     public void beliTiket(Antrian antrian, String moda, String asal, String tujuan, int harga) {
         if (first == null) {
             System.out.println("Antrian kosong");
+        }else if(asal.equalsIgnoreCase(tujuan)){
+            System.out.println("Kota Asal dan Kota Tujuan tidak boleh sama!!!!!!");
         } else {
             String nama = first.nama;
             antrian.enQueue(nama, moda, asal, tujuan, harga);
-            deQueue();
+
         }
     }
 
     void tiketTerjual() {
         Quwewe elemenSementara = first;
         if (elemenSementara == null) {
-            System.out.println("Antrian Kosong");
+            System.out.println("                Antrian Kosong             ");
         } else {
-            int hargatotal = 0;
+            hargatotal = 0;
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
             System.out.println("|       Nama           |       Moda        |      Kota Asal       |     Kota Tujuan      |       Harga          |");
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
@@ -92,10 +104,13 @@ public class Antrian {
             }
 
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
-            System.out.printf("| Total Belanja                                                                            : Rp.%-16s|\n", hargatotal);
+            System.out.printf("| Total Belanja                                                                            Rp.%-18s|\n", hargatotal);
             System.out.println("+----------------------+-------------------+----------------------+----------------------+----------------------+");
 
             }
         }
+
     }
 
+    
+ 

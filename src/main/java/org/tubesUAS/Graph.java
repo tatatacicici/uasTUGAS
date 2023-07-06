@@ -1,5 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.tubesUAS;
 
+/**
+ *
+ * @author Acer
+ */
 public class Graph {
     int jumlahKota;
     Kota firstKota;
@@ -105,8 +114,16 @@ public class Graph {
         return hasil;
     }
 
+//    public void cariJalur(Graph stadt, String awal, String tujuan) {
+//        System.out.println("Jalur dari " + awal + " ke " + tujuan + " : " + stadt.cekJalur(stadt.cariKota(awal), stadt.cariKota(tujuan)));
+//    }
     public void cariJalur(Graph stadt, String awal, String tujuan) {
-        System.out.println("Jalur dari " + awal + " ke " + tujuan + " : " + stadt.cekJalur(stadt.cariKota(awal), stadt.cariKota(tujuan)));
+        Kota awalKota = stadt.cariKota(awal);
+        Kota tujuanKota = stadt.cariKota(tujuan);
+
+        if (stadt.cekJalur(awalKota, tujuanKota)) {
+            System.out.println("Jalur dari " + awal + " ke " + tujuan + " : ada");
+        }
     }
 
     public void hapusJalur(String namaJalurDelete) {
@@ -155,37 +172,7 @@ public class Graph {
         return jumlahKota;
     }
 
-    // public void cetakGraph() {
-    //     Kota node = firstKota;
-    //     if (node != null) {
-    //         System.out.println("+----------------------------------------------------+");
-    //         System.out.printf("| %-20s | %-27s |\n", "Kota", "Jalur");
-    //         System.out.println("+----------------------------------------------------+");
-    //         while (node != null) {
-    //             jumlahKota++;
-    //             String infoKota = node.infoKota;
-    //             String jalurKota = "";
-
-    //             Jalur jlr = node.jalur;
-    //             while (jlr != null) {
-    //                 jalurKota += jlr.kota.infoKota + ", ";
-    //                 jlr = jlr.nextJalur;
-    //             }
-
-    //             if (!jalurKota.isEmpty()) {
-    //                 jalurKota = jalurKota.substring(0, jalurKota.length() - 2); // Remove trailing comma and space
-    //             }
-
-    //             System.out.printf("| %-20s | %-27s |\n", infoKota, jalurKota);
-
-    //             node = node.nextKota;
-    //         }
-    //         System.out.println("+----------------------------------------------------+");
-    //     } else {
-    //         System.out.println("Graph kosong");
-    //     }
-    // }
-    public void cetakGraph() {
+    public void cetakStadt() {
         Kota node = firstKota;
         if (node != null) {
             System.out.println("+-------------------------------+");
@@ -219,6 +206,48 @@ public class Graph {
             System.out.println("Graph kosong");
         }
     }
+    public void cetakRute() {
+        Kota node = firstKota;
+        if (node != null) {
+            System.out.println("+--------------------------------------------+");
+            System.out.printf("| %-12s | %-14s | %-10s |\n", "Kota", "Jalur", "Jarak");
+            System.out.println("+--------------------------------------------+");
+            while (node != null) {
+                String infoKota = node.infoKota;
+                String jalurKota = "";
+                String jarakKota = "";
+
+                Jalur jlr = node.jalur;
+                while (jlr != null) {
+                    jalurKota += jlr.kota.infoKota + "\n";
+                    jarakKota += jlr.jarakKota + "\n";
+                    jlr = jlr.nextJalur;
+                }
+
+                if (!jalurKota.isEmpty()) {
+                    jalurKota = jalurKota.substring(0, jalurKota.length() - 1); // Remove trailing newline
+                    jarakKota = jarakKota.substring(0, jarakKota.length() - 1); // Remove trailing newline
+                }
+
+                System.out.printf("| %-12s | %-14s | %-10s |\n", infoKota, "", ""); // Print empty values for Kota and Jalur
+
+                String[] jalurArray = jalurKota.split("\n"); // Separate jalur-jalur based on newline
+                String[] jarakArray = jarakKota.split("\n"); // Separate jarak-jarak based on newline
+                int maxLength = Math.max(jalurArray.length, jarakArray.length);
+
+                for (int i = 0; i < maxLength; i++) {
+                    String jalur = (i < jalurArray.length) ? jalurArray[i] : "";
+                    String jarak = (i < jarakArray.length) ? jarakArray[i] : "";
+                    System.out.printf("| %-12s | %-14s | %-10s |\n", "", jalur, jarak); // Print each jalur and jarak per row
+                }
+
+                node = node.nextKota;
+            }
+            System.out.println("+--------------------------------------------+");
+        } else {
+            System.out.println("Graph kosong");
+        }
+    }
 
     public boolean cekJalur(Kota asal, Kota tujuan) {
         Jalur jlr = asal.jalur;
@@ -247,3 +276,4 @@ public class Graph {
         return nilai;
     }
 }
+
