@@ -105,39 +105,42 @@ public class Main {
                             case 1:
                                 System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
+
                                 if (!nama_pnp.isEmpty()) {
                                     bus.enQueue(nama_pnp);
                                     System.out.println("Antrian Bus dengan nama " + nama_pnp + " ditambahkan");
                                 } else {
                                     System.out.println("Nama tidak boleh kosong. Antrian tidak ditambahkan.");
                                 }
-                                break;
+
                             case 2:
                                 System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
+
                                 if (!nama_pnp.isEmpty()) {
                                     kereta.enQueue(nama_pnp);
                                     System.out.println("Antrian Kereta dengan nama " + nama_pnp + " ditambahkan");
                                 } else {
                                     System.out.println("Nama tidak boleh kosong. Antrian tidak ditambahkan.");
                                 }
+
                                 break;
                             case 3:
                                 System.out.print("Masukkan Nama Anda: ");
                                 nama_pnp = input.nextLine();
+
                                 if (!nama_pnp.isEmpty()) {
                                     pesawat.enQueue(nama_pnp);
                                     System.out.println("Antrian Pesawat dengan nama " + nama_pnp + " ditambahkan");
                                 } else {
                                     System.out.println("Nama tidak boleh kosong. Antrian tidak ditambahkan.");
                                 }
+                                pesawat.enQueue(nama_pnp);
+                                System.out.println("Antrian Pesawat dengan nama " +nama_pnp + " ditambahkan");
+
                                 break;
 
                             default:
-                                throw new IllegalArgumentException("Jenis Antrian Tidak Valid!!!");
-                        }
-                        break;
-                    case 2:
                         System.out.println("\t  ━━━━━━━━━━");
                         System.out.println("\t    Lihat Antrian ");
                         System.out.println("\t  ━━━━━━━━━━");
@@ -249,7 +252,7 @@ public class Main {
                         System.out.println("3) Tiket Pesawat");
                         System.out.print("Silahkan pilih menu beli tiket: ");
                         int tiket = masukkan.nextInt();
-                        switch (tiket) {
+                        switch (tiket){
                             case 1:
                                 String moda = "Bus";
                                 System.out.println("");
@@ -259,6 +262,9 @@ public class Main {
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 int harga = (stadt.getNilaiJalur(asal, tujuan) * 1000);
+
+                                System.out.println("Tiket " + moda + " Atas Nama " + bus.first.nama + " Berhasil Dibeli");
+                                System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 bus.beliTiket(busTerjual, moda, asal, tujuan, harga);
                                 if(!asal.equalsIgnoreCase(tujuan)){
                                     System.out.println("Tiket " + moda + " Atas Nama " + bus.first.nama + " Berhasil Dibeli");
@@ -275,6 +281,9 @@ public class Main {
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 750);
+
+                                System.out.println("Tiket " + moda + " Atas Nama " + kereta.first.nama + " Berhasil Dibeli");
+                                System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
                                 kereta.beliTiket(keretaTerjual, moda, asal, tujuan, harga);
                                 if(!asal.equalsIgnoreCase(tujuan)) {
                                     System.out.println("Tiket " + moda + " Atas Nama " + kereta.first.nama + " Berhasil Dibeli");
@@ -291,6 +300,10 @@ public class Main {
                                 System.out.print("Masukkan Kota Tujuan Anda: ");
                                 tujuan = input.nextLine();
                                 harga = (stadt.getNilaiJalur(asal, tujuan) * 2000);
+
+                                System.out.println("Tiket " + moda + " Atas Nama " + pesawat.first.nama + " Berhasil Dibeli");
+                                System.out.println("Harga tiket "+asal+"-"+tujuan+": Rp."+harga);
+
                                 pesawat.beliTiket(pesawatTerjual, moda, asal, tujuan, harga);
                                 if(!asal.equalsIgnoreCase(tujuan)){
                                     System.out.println("Tiket " + moda + " Atas Nama " + pesawat.first.nama + " Berhasil Dibeli");
